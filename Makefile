@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/09/15 18:46:51 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/09/18 22:06:56 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ INCLUDE	= -L libft -lft
 all: $(NAME)
 
 $(NAME): $(OBJS)
-  cd libft && $(MAKE)
+	cd libft && $(MAKE)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDE)
 
 $(OBJS): %.o: %.c
@@ -43,11 +43,11 @@ $(OBJS): %.o: %.c
 
 clean:
 	@$(RM) $(OBJS)
-  cd libft && $(MAKE) clean
+	cd libft && $(MAKE) clean
 
 fclean: clean
 	@$(RM) $(NAME)
-  cd libft && $(MAKE) fclean
+	cd libft && $(MAKE) fclean
 
 re: fclean all
 

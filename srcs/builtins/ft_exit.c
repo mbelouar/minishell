@@ -6,9 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/15 18:59:05 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/18 22:04:54 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 int    ft_exit(char **args)
 {
