@@ -13,17 +13,29 @@
 #ifndef	MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
+# include <term.h>
+# include <curses.h>
+# include <termios.h>
+# include <stdint.h>
+# include <sys/ioctl.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <signal.h>
+# include <sys/wait.h>
 # include <sys/stat.h>
+# include <errno.h>
+# include <signal.h>
 # include <dirent.h>
-# include <string.h>
-# include <termios.h>
-# include <curses.h>  // or <ncurses.h>
+# include "libft/libft.h"
 
 # define SUCCESS 0
 # define FAILURE 1
+
+typedef	struct	s_data
+{
+	char		**env;
+	int			in_fd;
+	int			out_fd;
+	char		*pwd;
+}				t_data;
 
 #endif
