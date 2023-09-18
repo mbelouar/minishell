@@ -24,27 +24,30 @@ SRC = 	srcs/builtins/ft_cd.c \
 		srcs/builtins/ft_pwd.c \
 		srcs/builtins/ft_unset.c \
 
+LIBFT	= libft/libft.a
 NAME = minishell
 CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
+INCLUDE	= -L libft -lft
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(FLAGS) $(SRC) -o $(NAME)
-	@echo "$(GREEN)Compilation complete$(RESET)"
+  cd libft && $(MAKE)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDE)
 
 $(OBJS): %.o: %.c
-	@echo "$(YELLOW)Compiling $< $(RESET)"
 	@$(CC) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS)
+  cd libft && $(MAKE) clean
 
 fclean: clean
 	@$(RM) $(NAME)
+  cd libft && $(MAKE) fclean
 
 re: fclean all
 
