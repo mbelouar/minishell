@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:23:23 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/09/19 20:37:36 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/09/19 20:37:50 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "libft.h"
 
-void	error_sentence(char *str)
+int ft_strcmp(char *s1, char *s2)
 {
-	ft_putstr_fd(str, 2);
-}
+    int i;
 
-int		is_number(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	ft_exit(char **inputs, t_data *data)
-{
-
+    i = 0;
+    while (s1[i] || s2[i])
+    {
+        if (s1[i] != s2[i])
+            return(s1[i] - s2[i]);
+        i++;
+    }
+    return(0);
 }

@@ -6,11 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:32 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/18 22:04:51 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:52:23 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int		envlen(char **env)
 {
@@ -31,7 +31,7 @@ void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		str = ft_strstr(env[i], "=");
+		str = ft_strchr(env[i], '=');
 		if (str)
 		{
 			j = 0;

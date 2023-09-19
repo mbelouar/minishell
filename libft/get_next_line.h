@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:23:23 by mbelouar         ###   ########.fr       */
+/*   Created: 2022/11/01 21:07:44 by mbelouar          #+#    #+#             */
+/*   Updated: 2022/11/14 22:55:06 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	error_sentence(char *str)
-{
-	ft_putstr_fd(str, 2);
-}
+# include <stdlib.h>
+# include <unistd.h>
 
-int		is_number(char *str)
-{
-	int	i;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
 
-	i = 0;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
+void	*ft_calloc(size_t elementCount, size_t elementSize);
+char	*get_next_line(int fd);
+char	*ft_strchr(char *str, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_fill_rest(char *stock_arr, char *new_str, int i);
+int		ft_strlen(char *str);
 
-void	ft_exit(char **inputs, t_data *data)
-{
-
-}
+#endif

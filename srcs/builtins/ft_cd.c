@@ -6,16 +6,16 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:26 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/18 22:04:41 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:34:27 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int		cd_minus(t_data *data)
 {
 	if (var_index("OLDPWD=", data) < 0 ||
-	chdir((strchr(data->env[var_index("OLDPWD=", data)], '=') + 1)) == -1)
+	chdir((ft_strchr(data->env[var_index("OLDPWD=", data)], '=') + 1)) == -1)
 		return (0);
 	change_pwd(data, NULL);
 	return (1);
@@ -24,7 +24,7 @@ int		cd_minus(t_data *data)
 int		cd_alone(t_data *data)
 {
 	if (var_index("HOME=", data) < 0 ||
-	chdir((strchr(data->env[var_index("HOME=", data)], '=') + 1)) == -1)
+	chdir((ft_strchr(data->env[var_index("HOME=", data)], '=') + 1)) == -1)
 		return (0);
 	change_pwd(data, NULL);
 	return (1);

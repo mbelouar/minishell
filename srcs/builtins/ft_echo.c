@@ -6,11 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/18 22:04:47 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:22:45 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	ft_echo(char **args)
 {
