@@ -12,6 +12,10 @@
 
 #include "../minishell.h"
 
-int    ft_pwd(t_data *data)
+
+void	ft_pwd(t_data *data)
 {
+	ft_putstr(data->pwd);
+	ft_putstr("\n");
 }
+

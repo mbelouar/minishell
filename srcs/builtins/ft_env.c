@@ -12,6 +12,36 @@
 
 #include "../minishell.h"
 
-int    ft_env(t_data *data)
+int		envlen(char **env)
 {
+	int	i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	return (++i);
+}
+
+void	ft_env(char **env)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	while (env[i])
+	{
+		str = ft_strstr(env[i], "=");
+		if (str)
+		{
+			j = 0;
+			while (env[i][j])
+			{
+				write(1, &env[i][j], 1);
+				j++;
+			}
+			ft_putchar('\n');
+		}
+		i++;
+	}
 }
