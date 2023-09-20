@@ -39,7 +39,7 @@ int		print_export(char **env)
 	{
 		equal = 1;
 		j = 0;
-		ft_putstr("declare -x ");
+		ft_putstr_fd("declare -x ", 1);
 		while (env[i][j])
 		{
 			if (env[i][j] == '\\' || env[i][j] == '$' || env[i][j] == '\"')

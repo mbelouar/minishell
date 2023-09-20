@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/09/19 23:10:30 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/09/20 22:11:34 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,16 @@ GREEN = \033[0;32m
 RESET = \033[0m
 YELLOW = \033[0;33m
 
-SRC =	main.c
-	 	# srcs/builtins/ft_cd.c \
-		# srcs/builtins/ft_echo.c \
-		# srcs/builtins/ft_env.c \
-		# srcs/builtins/ft_exit.c \
-		# srcs/builtins/ft_export.c \
-		# srcs/builtins/ft_pwd.c \
-		# srcs/builtins/ft_unset.c \
+SRC =	main.c \
+	 	srcs/builtins/ft_cd.c \
+		srcs/builtins/ft_echo.c \
+		srcs/builtins/ft_env.c \
+		srcs/builtins/ft_exit.c \
+		srcs/builtins/ft_export.c \
+		srcs/builtins/ft_pwd.c \
+		srcs/builtins/ft_unset.c \
+		srcs/builtins/cd_utils.c \
+		srcs/builtins/export_utils.c \
 
 LIBFT	= libft/libft.a
 NAME = minishell
@@ -33,22 +35,22 @@ RM = rm -f
 OBJS := $(SRC:.c=.o)
 INCLUDE	= -L libft -lft #-I ../minishell.h
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(OBJS)
-	@cd libft && $(MAKE)
-	$(CC) $(FLAGS) -o $(NAME) -lreadline $(OBJS) $(INCLUDE)
+	@make -C libft
+	@$(CC) $(FLAGS) -o $(NAME) -lreadline  $(OBJS) $(INCLUDE)
 
-$(OBJS): %.o: %.c
+%.o: %.c
 	@$(CC) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS)
-	@cd libft && $(MAKE) clean
+	@make clean -C libft
 
 fclean: clean
 	@$(RM) $(NAME)
-	cd libft && $(MAKE) fclean
+	@ make fclean -C libft
 
 re: fclean all
 

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../minishell.h"
+
 void	change_env_pwd(t_data *data)
 {
 	char *pwd;
@@ -49,22 +51,22 @@ void	change_env_oldpwd(t_data *data)
 
 int		change_pwd(t_data *data, char *input)
 {
-	char	*pwd;
-	char	*cwd;
+	char	*prev_wd;
+	char	*curr_wd;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd && input && ft_strcmp(".", input) == 0)
+	curr_wd = getcwd(NULL, 0);
+	if (!curr_wd && input && ft_strcmp(".", input) == 0)
 	{
 		ft_putstr_fd("Error retrieving current directory\n", 2);
-		pwd = data->pwd;
-		data->pwd = ft_strjoin(pwd, "/.");
-		free(pwd);
+		prev_wd = data->prev_wd;
+		data->prev_wd = ft_strjoin(prev_wd, "/.");
+		free(prev_wd);
 	}
-	if (cwd)
+	if (curr_wd)
 	{
 		change_env_oldpwd(data);
 		change_env_pwd(data);
 	}
-	free(cwd);
+	free(curr_wd);
 	return (1);
 }

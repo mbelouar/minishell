@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 23:12:57 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:06:24 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@
 typedef	struct	s_data
 {
 	char		**env;
-	int			in_fd;
-	int			out_fd;
 	char		*pwd;
+	char		*prev_wd;
+	char		*curr_wd;
+	int			exit_status;
 }				t_data;
 
 void	ft_export(char **args, t_data *data);
@@ -55,6 +56,8 @@ void	free_env(char **env);
 void	ft_echo(char **args);
 
 void	ft_pwd(t_data *data);
+
+void	ft_exit(char **args);
 
 void	ft_env(char **env);
 int		envlen(char **env);

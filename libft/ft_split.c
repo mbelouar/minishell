@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:18:25 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/20 00:55:22 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/20 04:28:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ int ft_count_words(char const *s)
 
 char* ft_remove_quotes(const char *s)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
+	char	*res;
 
 	i = 0;
 	len = 0;
@@ -52,9 +54,9 @@ char* ft_remove_quotes(const char *s)
 			len++;
 		i++;
 	}
-	char *res = calloc(len, sizeof(char));
+	res = ft_calloc(len, sizeof(char));
 	i = 0;
-	int j = 0;
+	j = 0;
 	while (s[i])
 	{
 	    if (s[i] != 34)
@@ -74,8 +76,8 @@ void	fill_s(char **dest, char const *s, char c, int words_nbr)
 	int	j;
 	int	count_char;
 	int quote;
-	(void)c;
 
+	(void)c;
 	i = 0;
 	j = 0;
 	while (j < words_nbr)

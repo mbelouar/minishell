@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:37 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:23:28 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:01:27 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,26 @@ void	export_alone(t_data *data)
 {
 	int		i;
 	int		j;
-	char	**temp_env;
+	char	**tmp_env;
 	char	*swap;
 
 	i = 0;
-	temp_env = dup_env(data->env);
-	while (temp_env[i + 1])
+	tmp_env = dup_env(data->env);
+	while (tmp_env[i + 1])
 	{
 		j = i + 1;
-		if (ft_strcmp(temp_env[i], temp_env[j]) > 0)
+		if (ft_strcmp(tmp_env[i], tmp_env[j]) > 0)
 		{
-			swap = temp_env[j];
-			temp_env[j] = temp_env[i];
-			temp_env[i] = swap;
+			swap = tmp_env[j];
+			tmp_env[j] = tmp_env[i];
+			tmp_env[i] = swap;
 			i = 0;
 		}
 		else
 			i++;
 	}
-	print_export(temp_env);
-	free_env(temp_env);
+	print_export(tmp_env);
+	free_env(tmp_env);
 }
 
 void ft_export(char **args, t_data *data)
@@ -112,7 +112,7 @@ void ft_export(char **args, t_data *data)
                 }
             }
             else
-                return error_sentence("export: bad identifier\n");
+                return (error_sentence("export: bad identifier\n"));
             i++;
         }
     }

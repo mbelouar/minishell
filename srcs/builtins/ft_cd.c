@@ -6,25 +6,29 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:26 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:34:27 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:44:45 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		cd_minus(t_data *data)
+int cd_minus(t_data *data)
 {
-	if (var_index("OLDPWD=", data) < 0 ||
-	chdir((ft_strchr(data->env[var_index("OLDPWD=", data)], '=') + 1)) == -1)
+	char *oldpwd_env;
+
+	oldpwd_env = getenv("OLDPWD");
+	if (oldpwd_env == NULL || chdir(oldpwd_env) == -1)
 		return (0);
 	change_pwd(data, NULL);
 	return (1);
 }
 
-int		cd_alone(t_data *data)
+int cd_alone(t_data *data)
 {
-	if (var_index("HOME=", data) < 0 ||
-	chdir((ft_strchr(data->env[var_index("HOME=", data)], '=') + 1)) == -1)
+	char *home_env;
+
+	home_env = getenv("HOME");
+	if (home_env == NULL || chdir(home_env) == -1)
 		return (0);
 	change_pwd(data, NULL);
 	return (1);

@@ -6,14 +6,14 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 23:55:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/09/19 23:35:07 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/09/20 18:52:43 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=  ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolower.c ft_toupper.c ft_bzero.c ft_putchar.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strcmp.c ft_strncmp.c ft_atoi.c ft_calloc.c ft_strdup.c ft_strjoin.c ft_split.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_itoa.c ft_strtrim.c ft_strmapi.c ft_striteri.c
 OBJS	= ${SRCS:.c=.o}
 NAME	= libft.a
-AR		= ar -r
+AR		= ar -rcs
 CC		= cc
 CFLAGS = -Wall -Werror -Wextra
 RM 		= rm -f
@@ -22,17 +22,19 @@ BONUS_O	= ${BONUS:.c=.o}
 
 all:	${NAME}
 
+.c.o:
+	@$(CC) -c $< -o $@
 ${NAME}:	${OBJS}
-			${AR} ${NAME} ${OBJS}
+			@${AR} ${NAME} ${OBJS}
 
 bonus:	${BONUS_O} ${OBJS}
-		${AR} ${NAME} ${OBJS} ${BONUS_O}
+		@${AR} ${NAME} ${OBJS} ${BONUS_O}
 
 clean:
-		${RM} ${OBJS} ${BONUS_O}
+		@${RM} ${OBJS} ${BONUS_O}
 
 fclean:	clean
-		${RM} ${NAME}
+		@${RM} ${NAME}
 
 re:		fclean all
 
