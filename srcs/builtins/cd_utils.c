@@ -14,7 +14,7 @@
 
 void	change_env_pwd(t_data *data)
 {
-	char *pwd;
+	char	*pwd;
 
 	data->pwd = getcwd(NULL, 0);
 	if (var_index("PWD", data) >= 0)
@@ -33,13 +33,13 @@ void	change_env_pwd(t_data *data)
 
 void	change_env_oldpwd(t_data *data)
 {
-	char *pwd;
-	char *oldpwd;
+	char	*pwd;
+	char	*oldpwd;
 
 	if (var_index("OLDPWD", data) >= 0)
 	{
-		pwd = ft_strjoin("PWD=", data->pwd);
-		oldpwd = ft_strjoin("OLD", pwd);
+		pwd = ft_strjoin("PWD=", data->pwd); //join the PWD= with the wd in the env (PWD=/path)
+		oldpwd = ft_strjoin("OLD", pwd);  //become like this (OLDPWD=/path)
 		replace_var(oldpwd, data, var_index("OLDPWD=", data));
 		free(oldpwd);
 		free(pwd);
@@ -49,18 +49,18 @@ void	change_env_oldpwd(t_data *data)
 	free(data->pwd);
 }
 
-int		change_pwd(t_data *data, char *input)
+int	change_pwd(t_data *data, char *input)
 {
-	char	*prev_wd;
+	char	*pwd;
 	char	*curr_wd;
 
 	curr_wd = getcwd(NULL, 0);
 	if (!curr_wd && input && ft_strcmp(".", input) == 0)
 	{
 		ft_putstr_fd("Error retrieving current directory\n", 2);
-		prev_wd = data->prev_wd;
-		data->prev_wd = ft_strjoin(prev_wd, "/.");
-		free(prev_wd);
+		pwd = data->pwd;
+		data->pwd = ft_strjoin(pwd, "/.");
+		free(pwd);
 	}
 	if (curr_wd)
 	{
@@ -70,3 +70,41 @@ int		change_pwd(t_data *data, char *input)
 	free(curr_wd);
 	return (1);
 }
+
+
+// void	handle_getcwd_error(t_data *data)
+// {
+// 	char	*prev_wd;
+
+// 	ft_putstr_fd("Error retrieving current directory\n", 2);
+// 	prev_wd = data->prev_wd;
+// 	data->prev_wd = ft_strjoin(prev_wd, "/.");
+// 	free(prev_wd);
+// }
+
+// void	update_current_directory(t_data *data)
+// {
+// 	char	*curr_wd;
+
+// 	curr_wd = getcwd(NULL, 0);
+// 	if (!curr_wd)
+// 		handle_getcwd_error(data);
+// 	else
+// 	{
+// 		free(data->pwd);
+// 		data->pwd = curr_wd;
+// 		change_env_oldpwd(data);
+// 		change_env_pwd(data);
+// 	}
+// }
+
+// int	change_pwd(t_data *data, char *input)
+// {
+// 	if (input && ft_strcmp(".", input) == 0)
+// 	{
+// 		update_current_directory(data);
+// 		return (1);
+// 	}
+// 	update_current_directory(data);
+// 	return (1);
+// }

@@ -6,11 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/20 23:06:24 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/21 05:38:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include <term.h>
@@ -31,12 +31,10 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-typedef	struct	s_data
+typedef struct s_data
 {
 	char		**env;
 	char		*pwd;
-	char		*prev_wd;
-	char		*curr_wd;
 	int			exit_status;
 }				t_data;
 

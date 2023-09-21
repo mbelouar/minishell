@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/20 21:35:22 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/21 05:46:38 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error_sentence(char *str)
 	ft_putstr_fd(str, 2);
 }
 
-int		is_number(char *str)
+int	is_number(char *str)
 {
 	int	i;
 

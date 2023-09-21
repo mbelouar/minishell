@@ -6,12 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:56:22 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/21 05:54:35 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 void	ft_pwd(t_data *data)
 {

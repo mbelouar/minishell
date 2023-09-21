@@ -6,13 +6,13 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:32 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/19 20:52:23 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/21 05:46:16 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		envlen(char **env)
+int	envlen(char **env)
 {
 	int	i;
 

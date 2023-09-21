@@ -6,12 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:43 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/20 22:09:41 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/21 05:54:51 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 void	free_env(char **env)
 {
