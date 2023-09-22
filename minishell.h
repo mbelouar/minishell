@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/21 05:38:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:44:30 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,33 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+typedef struct s_tokenizer	t_tokenizer;
+typedef enum	e_type	t_type;
+
+enum	e_type
+{
+	CMD,
+	BUILTIN,
+	PIPE,
+	RED_OUT_TRUNC, // >
+	RED_OUT_APPEND, // >>
+	RED_IN,			// <
+	HEREDOC 		// <<
+};
+
+struct	s_tokenizer
+{
+	char		*content;
+	t_type		type;
+	t_tokenizer	*next;
+};
+
 typedef struct s_data
 {
-	char		**env;
-	char		*pwd;
-	int			exit_status;
+	int				exit_status;
+	char			**env;
+	char			*pwd;
+	t_tokenizer		*tokenizer;
 }				t_data;
 
 void	ft_export(char **args, t_data *data);
