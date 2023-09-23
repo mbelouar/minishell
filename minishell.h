@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/22 22:44:30 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/23 04:55:54 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,14 @@ void	change_env_oldpwd(t_data *data);
 void	change_env_pwd(t_data *data);
 
 void	error_sentence(char *str);
+
+
+t_tokenizer *new_node(char *content, t_type type);
+void		printEnumName(enum e_type value);
+void		printList(t_tokenizer *head);
+void 		ft_create_node(t_tokenizer **head, char *content, t_type type);
+void		ft_redirection(t_data *data, char **arr, int *i);
+void		tokenizer(t_data *data, char **arr);
+void		free_token_list(t_tokenizer *head);
 
 #endif

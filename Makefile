@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/09/22 21:57:47 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/09/23 05:42:39 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,13 @@ SRC =	main.c \
 		srcs/builtins/ft_unset.c \
 		srcs/builtins/cd_utils.c \
 		srcs/builtins/export_utils.c \
+		srcs/parser/tokenizer.c \
+		srcs/parser/tokenizer_utils.c \
 
 LIBFT	= libft/libft.a
 NAME = minishell
 CC = cc
-FLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
 INCLUDE	= -L libft -lft #-I ../minishell.h
