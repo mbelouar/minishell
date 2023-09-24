@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/23 05:39:44 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 04:46:14 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,69 +44,106 @@ void ft_create_node(t_tokenizer **head, char *content, t_type type)
 	}
 }
 
-void	ft_redirection(t_data *data, char **arr, int *i)
+void ft_redirection(t_list *curr_node, t_data *data)
 {
-	if (arr[*i][0] == '>' && arr[*i][1] == '\0')
-		ft_create_node(&data->tokenizer, arr[++(*i)], RED_OUT_TRUNC);
-	else if (arr[*i][0] == '>' && arr[*i][1] == '>' && arr[*i][2] == '\0')
-		ft_create_node(&data->tokenizer, arr[++(*i)], RED_OUT_APPEND);
-	else if (arr[*i][0] == '<' && arr[*i][1] == '\0')
-		ft_create_node(&data->tokenizer, arr[++(*i)], RED_IN);
-	else
-		ft_create_node(&data->tokenizer, arr[++(*i)], HEREDOC);
+	t_type	type;
+	char	*content;
+
+	if (curr_node->content[0] == '>' && curr_node->content[1] == '>')
+	{
+		type = RED_OUT_APPEND;
+		content = curr_node->next->content;
+	}
+	else if (curr_node->content[0] == '>')
+	{
+		type = RED_OUT_TRUNC;
+		content = curr_node->next->content;
+	}
+	else if (curr_node->content[0] == '<' && curr_node->content[1] == '<')
+	{
+		type = HEREDOC;
+		content = curr_node->next->content;
+	}
+	else if (curr_node->content[0] == '<')
+	{
+		type = RED_IN;
+		content = curr_node->next->content;
+	}
+	ft_create_node(&data->tokenizer, content, type);
 }
 
-// void	tokenizer(t_data *data)
-// {
-// 	int		i;
-// 	char	*cmd;
-
-// 	i = 0;
-// 	while (arr[i])
-// 	{
-// 		if (arr[i][0] == '>' || arr[i][0] == '<')
-// 		{
-// 			ft_redirection(data, arr, &i);
-// 			if (!arr[i])
-// 				break ;
-// 		}
-// 		else if (arr[i][0] == '|')
-// 		{
-// 			i++;
-// 			ft_create_node(&data->tokenizer, strdup(""), PIPE);
-// 		}
-// 		else
-// 		{
-// 			cmd = ft_strdup("");
-// 			while (arr[i])
-// 			{
-// 				if (arr[i][0] == '<' || arr[i][0]  == '>' || arr[i][0] == '|')
-// 					break ;
-// 				cmd = ft_strjoin(cmd, arr[i]);
-// 				cmd = ft_strjoin(cmd, " ");
-// 				i++;
-// 			}
-// 			cmd = ft_strtrim(cmd, " ");
-// 			printf("cmd: [%s]\n", cmd);
-// 			ft_create_node(&data->tokenizer, cmd, CMD);
-// 		}
-// 		if (!arr[i])
-// 			break ;
-// 		i++;
-// 	}
-// }
-
-void	tokenizer(t_data *data)
+int	builtin_check(char *cmd)
 {
-	t_list	*curr;
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "env") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "exit") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	return (0);
+}
+
+void	free_double_pointer(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+}
+
+void tokenizer(t_data *data)
+{
+	t_list		*curr;
+	t_type		type;
+	char		*content;
 
 	curr = data->lst;
 	while (curr)
 	{
-		if (*(curr->content) == '>')
+		if (curr->content[0] == '<' || curr->content[0] == '>')
 		{
-			ft_redirection()
+			ft_redirection(curr, data);
+			curr = curr->next;
 		}
+		else if (curr->content[0] == '|')
+			ft_create_node(&data->tokenizer, ft_strdup("|"), PIPE);
+		else
+		{
+			content = ft_strdup("");
+			while (curr)
+			{
+				content = ft_strjoin(content, curr->content);
+				content = ft_strjoin(content, " ");
+				if (curr->next && (curr->next->content[0] == '|' || curr->next->content[0] == '<' || curr->next->content[0] == '>'))
+					break ;
+				curr = curr->next;
+			}
+			content = ft_strtrim(content, " ");
+			char	**tmp = ft_split(content, ' ');
+			if (builtin_check(tmp[0]))
+				type = BUILTIN;
+			else
+				type = CMD;
+			free_double_pointer(tmp);
+			ft_create_node(&data->tokenizer, content, type);
+		}
+		if (curr == NULL)
+			break ;
 		curr = curr->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/23 05:43:25 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 04:08:05 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,35 @@ void printEnumName(enum e_type value)
 }
 
 
-void free_token_list(t_tokenizer *head)
-{
-	t_tokenizer *current = head;
-	t_tokenizer *next;
+// void free_token_list(t_tokenizer *head)
+// {
+// 	t_tokenizer *current = head;
+// 	t_tokenizer *next;
 
-	while (current != NULL)
+// 	while (current != NULL)
+// 	{
+// 		next = current->next; // Save the reference to the next node
+// 		if (current->content)
+// 			free(current->content); // Free the content (assuming it was dynamically allocated)
+// 		// free(current); // Free the current node
+// 		current = next; // Move to the next node
+// 	}
+// }
+
+void	free_token_list(t_tokenizer **lst)
+{
+	t_tokenizer	*p;
+
+	if (!lst)
+		return ;
+	while (*lst)
 	{
-		next = current->next; // Save the reference to the next node
-		free(current->content); // Free the content (assuming it was dynamically allocated)
-		free(current); // Free the current node
-		current = next; // Move to the next node
+		p = *lst;
+		*lst = (*lst)->next;
+		free(p->content);
+		free(p);
 	}
+	*lst = NULL;
 }
 
 void printList(t_tokenizer *head)

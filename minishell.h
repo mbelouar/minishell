@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/23 04:55:54 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 04:58:51 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <dirent.h>
 # include <readline/readline.h>
 # include "libft/libft.h"
+# include <string.h>
+# include <fcntl.h>
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -56,7 +58,7 @@ typedef struct s_data
 {
 	int				exit_status;
 	char			**env;
-	char			*pwd;
+	char			*pwd; //
 	t_list			*lst;
 	t_tokenizer		*tokenizer;
 }				t_data;
@@ -98,8 +100,9 @@ t_tokenizer *new_node(char *content, t_type type);
 void		printEnumName(enum e_type value);
 void		printList(t_tokenizer *head);
 void 		ft_create_node(t_tokenizer **head, char *content, t_type type);
-void		ft_redirection(t_data *data, char **arr, int *i);
+void		ft_redirection(t_list *, t_data *data);
 void		tokenizer(t_data *data);
-void		free_token_list(t_tokenizer *head);
-
+void		free_token_list(t_tokenizer **head);
+int	builtin_check(char *cmd);
+void	free_double_pointer(char **arr);
 #endif
