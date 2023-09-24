@@ -33,6 +33,27 @@ void print_arr(char **arr)
 		printf("arr[%d]: %s\n", i, arr[i]);
 }
 
+void	create_lst(t_data *data, char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		t_list	*new_node = ft_lstnew(arr[i]);
+		ft_lstadd_back(&data->lst, ft_lstnew(arr[i]));
+		i++;
+	}
+}
+
+void print_lst(t_list *head) {
+    t_list *current = head;
+    while (current != NULL) {
+        printf("%s\n", current->content);
+        current = current->next;
+    }
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -65,9 +86,12 @@ int		main(int ac, char **av, char **env)
 			ft_exit(tmp);
 		if (ft_strcmp(tmp[0], "cd") == 0)
 			ft_cd(tmp, &data);
-		tokenizer(&data, tmp);
-		printList(data.tokenizer);
-		free_token_list(data.tokenizer);
+		create_lst(&data, tmp);
+		print_lst(data.lst);
+		// tokenizer(&data);
+		ft_lstclear(&data.lst);
+		// printList(data.tokenizer);
+		// free_token_list(data.tokenizer);
 		// is_builtin();
 			// builtin();
 		// for (int i = 0; tmp[i]; i++)

@@ -54,7 +54,7 @@ char* ft_remove_quotes(const char *s)
 			len++;
 		i++;
 	}
-	res = ft_calloc(len, sizeof(char));
+	res = ft_calloc(len + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -101,7 +101,7 @@ void	fill_s(char **dest, char const *s, char c, int words_nbr)
 			count_char++;
 			i++;
 		}
-		dest[j] = ft_remove_quotes(ft_substr(s, (i - count_char), count_char));
+		dest[j] = ft_substr(s, (i - count_char), count_char);
 		j++;
 	}
 	dest[j] = NULL;

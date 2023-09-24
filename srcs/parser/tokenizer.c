@@ -56,33 +56,57 @@ void	ft_redirection(t_data *data, char **arr, int *i)
 		ft_create_node(&data->tokenizer, arr[++(*i)], HEREDOC);
 }
 
-void	tokenizer(t_data *data, char **arr)
-{
-	int		i;
-	char	*cmd;
+// void	tokenizer(t_data *data)
+// {
+// 	int		i;
+// 	char	*cmd;
 
-	i = 0;
-	while (arr[i])
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		if (arr[i][0] == '>' || arr[i][0] == '<')
+// 		{
+// 			ft_redirection(data, arr, &i);
+// 			if (!arr[i])
+// 				break ;
+// 		}
+// 		else if (arr[i][0] == '|')
+// 		{
+// 			i++;
+// 			ft_create_node(&data->tokenizer, strdup(""), PIPE);
+// 		}
+// 		else
+// 		{
+// 			cmd = ft_strdup("");
+// 			while (arr[i])
+// 			{
+// 				if (arr[i][0] == '<' || arr[i][0]  == '>' || arr[i][0] == '|')
+// 					break ;
+// 				cmd = ft_strjoin(cmd, arr[i]);
+// 				cmd = ft_strjoin(cmd, " ");
+// 				i++;
+// 			}
+// 			cmd = ft_strtrim(cmd, " ");
+// 			printf("cmd: [%s]\n", cmd);
+// 			ft_create_node(&data->tokenizer, cmd, CMD);
+// 		}
+// 		if (!arr[i])
+// 			break ;
+// 		i++;
+// 	}
+// }
+
+void	tokenizer(t_data *data)
+{
+	t_list	*curr;
+
+	curr = data->lst;
+	while (curr)
 	{
-		if (arr[i][0] == '>' || arr[i][0] == '<')
-			ft_redirection(data, arr, &i);
-		else if (arr[i][0] == '|')
+		if (*(curr->content) == '>')
 		{
-			i++;
-			ft_create_node(&data->tokenizer, NULL, PIPE);
+			ft_redirection()
 		}
-		else
-		{
-			while (arr[i] && arr[i][0] != '<' && arr[i][0] != '|'
-					&& arr[i][0] != '>')
-			{
-				cmd = ft_strdup("");
-				cmd = ft_strjoin(cmd, arr[i]);
-				printf("command is : %s \n", cmd);
-				i++;
-			}
-			ft_create_node(&data->tokenizer, cmd, CMD);
-		}
-		i++;
+		curr = curr->next;
 	}
 }

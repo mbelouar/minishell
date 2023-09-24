@@ -32,7 +32,7 @@ SRC =	main.c \
 LIBFT	= libft/libft.a
 NAME = minishell
 CC = cc
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
 INCLUDE	= -L libft -lft #-I ../minishell.h
@@ -41,7 +41,7 @@ all: $(NAME) clean
 
 $(NAME): $(OBJS)
 	@make -C libft
-	@$(CC) $(FLAGS) -o $(NAME) -lreadline  $(OBJS) $(INCLUDE)
+	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) -lreadline
 
 %.o: %.c
 	@$(CC) -c $< -o $@
