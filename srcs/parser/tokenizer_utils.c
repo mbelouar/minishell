@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 04:08:05 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:40:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,6 @@ void printEnumName(enum e_type value)
 		printf("Type: %s\n", e_type_names[6]);
 }
 
-
-// void free_token_list(t_tokenizer *head)
-// {
-// 	t_tokenizer *current = head;
-// 	t_tokenizer *next;
-
-// 	while (current != NULL)
-// 	{
-// 		next = current->next; // Save the reference to the next node
-// 		if (current->content)
-// 			free(current->content); // Free the content (assuming it was dynamically allocated)
-// 		// free(current); // Free the current node
-// 		current = next; // Move to the next node
-// 	}
-// }
-
 void	free_token_list(t_tokenizer **lst)
 {
 	t_tokenizer	*p;
@@ -72,6 +56,21 @@ void	free_token_list(t_tokenizer **lst)
 		free(p);
 	}
 	*lst = NULL;
+}
+
+void	free_double_pointer(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
 }
 
 void printList(t_tokenizer *head)

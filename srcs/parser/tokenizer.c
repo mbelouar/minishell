@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 04:46:14 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:40:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,21 +89,6 @@ int	builtin_check(char *cmd)
 	else if (ft_strcmp(cmd, "cd") == 0)
 		return (1);
 	return (0);
-}
-
-void	free_double_pointer(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		arr[i] = NULL;
-		i++;
-	}
-	free(arr);
-	arr = NULL;
 }
 
 void tokenizer(t_data *data)

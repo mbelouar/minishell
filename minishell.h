@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 04:58:51 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:48:44 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@
 # include <dirent.h>
 # include <readline/readline.h>
 # include "libft/libft.h"
-# include <string.h>
+# include <string.h> // must removed
 # include <fcntl.h>
 
 # define SUCCESS 0
 # define FAILURE 1
+# define MAX_PATH_LENGTH 4096
 
 typedef struct s_tokenizer	t_tokenizer;
 typedef enum	e_type	t_type;
@@ -58,7 +59,7 @@ typedef struct s_data
 {
 	int				exit_status;
 	char			**env;
-	char			*pwd; //
+	char			*pwd;
 	t_list			*lst;
 	t_tokenizer		*tokenizer;
 }				t_data;
@@ -103,6 +104,16 @@ void 		ft_create_node(t_tokenizer **head, char *content, t_type type);
 void		ft_redirection(t_list *, t_data *data);
 void		tokenizer(t_data *data);
 void		free_token_list(t_tokenizer **head);
-int	builtin_check(char *cmd);
-void	free_double_pointer(char **arr);
+int			builtin_check(char *cmd);
+void		free_double_pointer(char **arr);
+
+void		execute(t_data *data);
+void		execute_compound_command(t_data *data);
+void		execute_simple_cmd(t_data *data);
+void		setup_redirections(t_tokenizer *head);
+char		*get_absolute_path(const char *command_name);
+int			check_pipe(t_tokenizer *lst);
+int			count_cmds(t_tokenizer *lst);
+
+
 #endif
