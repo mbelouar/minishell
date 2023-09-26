@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 18:44:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/26 18:49:52 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/09/26 21:53:28 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/09/26 22:54:15 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_echo(char **args)
+void	exec_builtin(char **cmd, t_data *data)
 {
-	int	i;
-	int	n;
 
-	i = 1;
-	n = 0;
-	while (args[i] && args[i][0] == '-' && args[i][1] == 'n')
-	{
-		n++;
-		i++;
-	}
-	while (args[i])
-	{
-		write(1, args[i], ft_strlen(args[i]));
-		if (args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
-	if (n == 0)
-		write(1, "\n", 1);
 }

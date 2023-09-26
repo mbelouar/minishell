@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 18:53:24 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:05:28 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char *get_absolute_path(const char *command_name)
         return NULL;
     }
 
-    char *path_copy = strdup(path_env);
+    char *path_copy = ft_strdup(path_env);
     if (path_copy == NULL) {
         perror("Memory allocation failed");
         return NULL;
@@ -35,7 +35,7 @@ char *get_absolute_path(const char *command_name)
         snprintf(absolute_path, sizeof(absolute_path), "%s/%s", token, command_name);
 
         if (access(absolute_path, X_OK) == 0) {
-            result = strdup(absolute_path);
+            result = ft_strdup(absolute_path);
             break ;
         }
     }

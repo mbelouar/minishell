@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 18:52:40 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/26 22:54:30 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 void	execute_simple_cmd(t_data *data)
 {
 	t_tokenizer	*curr;
+	pid_t		pid;
+	char		**cmd;
+	char		*cmd_name;
 	// add function that retreive the asbsolute path of the command
-	char	**cmd;
-	char 	*cmd_name = NULL;
-
 	curr = data->tokenizer;
-	// cmd = ft_split(curr->content, ' ');
-	// if (builtin_check(cmd[0]))
-		// exec_builtin();
-	// else
-	pid_t	pid;
-
+	cmd_name = NULL;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -40,7 +35,10 @@ void	execute_simple_cmd(t_data *data)
 			if (curr->type == CMD)
 			{
 				cmd = ft_split(curr->content, ' ');
-				cmd_name = get_absolute_path(cmd[0]);
+				if (builtin_check(cmd[0]))
+					exec_builtin(cmd, data);
+				else
+					cmd_name = get_absolute_path(cmd[0]);
 			}
 			curr = curr->next;
 		}

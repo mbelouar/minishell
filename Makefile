@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/09/24 19:05:06 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/09/26 22:52:17 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =	main.c \
 		srcs/execution/utils_exec.c \
 		srcs/execution/simple_cmd.c \
 		srcs/execution/compound_cmd.c \
+		srcs/execution/exec_builtin.c \
 
 
 LIBFT	= libft/libft.a
