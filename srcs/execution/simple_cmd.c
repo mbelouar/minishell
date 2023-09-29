@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/26 22:54:30 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:19:53 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,29 @@
 void	execute_simple_cmd(t_data *data)
 {
 	t_tokenizer	*curr;
+	t_tokenizer	*tmp;
 	pid_t		pid;
 	char		**cmd;
 	char		*cmd_name;
-	// add function that retreive the asbsolute path of the command
+
 	curr = data->tokenizer;
 	cmd_name = NULL;
+	tmp = data->tokenizer;
+	while (tmp)
+	{
+		if (tmp->type == BUILTIN)
+		{
+			cmd = ft_split(tmp->content, ' ');
+			exec_builtin(cmd, data);
+			free_double_pointer(cmd);
+			return ;
+		}
+		tmp = tmp->next;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
-		perror("error:");
+		perror("error in fork:");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
@@ -35,25 +48,23 @@ void	execute_simple_cmd(t_data *data)
 			if (curr->type == CMD)
 			{
 				cmd = ft_split(curr->content, ' ');
-				if (builtin_check(cmd[0]))
-					exec_builtin(cmd, data);
-				else
-					cmd_name = get_absolute_path(cmd[0]);
+				cmd_name = get_absolute_path(cmd[0]);
 			}
 			curr = curr->next;
 		}
 		if (cmd_name)
 		{
-			execve(cmd_name, cmd, data->env);
-			perror("");
-			exit(EXIT_FAILURE);
+			if (execve(cmd_name, cmd, data->env) == -1)
+			{
+				perror("error in execve:");
+				exit(EXIT_FAILURE);
+			}
 		}
-		dprintf(2, "minishell: %s: command not found\n", cmd[0]);
-		exit(127); // to be changed
-	}
-	else
-	{
-		waitpid(pid, 0, 0);
+		else if (builtin_check(cmd[0]) == 0 || cmd_name == NULL)
+		{
+			dprintf(2, "minishell: command not found: %s\n", cmd[0]);
+			exit(127); // to be changed
+		}
 	}
 }
 

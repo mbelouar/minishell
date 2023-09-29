@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compound_command.c                                 :+:      :+:    :+:   */
+/*   compound_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/24 18:53:28 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:18:27 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	execute_compound_command(t_data *data)
 				setup_redirections(data->tokenizer);
 			else
 				setup_redirections(curr);
-			printf("cmd_name: %s\n", cmd_name);
 			execve(cmd_name, cmd, data->env);
 			perror("error: ");
 			exit(EXIT_FAILURE);

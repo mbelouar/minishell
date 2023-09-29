@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:33:23 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/22 21:56:52 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:05:32 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,18 @@ int	ft_pipe(t_data *data, char **env)
 
 	if (pipe(fd) == -1)
 	{
-		// ft_putstr_fd("An error ocurred with opening the pipeline", 2);
+		ft_putstr_fd("An error ocurred with opening the pipeline", 2);
 		exit(EXIT_FAILURE);
 	}
-	for (int i = 0; i < 2; i++)
+	pid = fork();
+	if (pid == 0)
 	{
-		char cmd1[] = "/bin/ls";
-		char cmd2[] = "/bin/cat";
-		char *s1[] = {"/bin/ls", "-la", NULL};
-		char *s2[] = {"/bin/cat", "-e", NULL};
-		pid = fork();
-		if (pid == 0)
-		{
-			if (i == 0)
-			{
-				dup2(fd[1], 1);
-				execve(cmd1, s1, env);
-			}
-			else
-			{
-				dup2(fd[0], 0);
-				execve(cmd2, s2, env);
-			}
-			// child process
-		}
-		else
-		{
-			// if (i == 1)
-				// waitpid(pid, 0, 0);
-			// parent process
-		}
+		// child process
+	}
+	else
+	{
+		// parent process
+		// waitpid(pid, 0, 0);
 	}
 	return (1);
-}
-
-int main(int ac, char **av, char **env)
-{
-	ft_pipe(NULL, env);
-	return (0);
 }

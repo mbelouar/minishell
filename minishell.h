@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/26 22:51:56 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:20:59 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ struct	s_tokenizer
 
 typedef struct s_data
 {
+
 	int				exit_status;
 	char			**env;
 	char			*pwd;
@@ -114,7 +115,7 @@ void		setup_redirections(t_tokenizer *head);
 char		*get_absolute_path(const char *command_name);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
-void	exec_builtin(char **cmd, t_data *data);
+void		exec_builtin(char **cmd, t_data *data);
 
 
 #endif

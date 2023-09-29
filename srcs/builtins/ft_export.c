@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:37 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/21 05:54:16 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:44:18 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**export_env(char **old_env, char *export)
 	char	**new_env;
 
 	i = 0;
-	new_env = malloc(sizeof(char *) * (envlen(old_env) + 1));
+	new_env = ft_calloc((envlen(old_env) + 2), sizeof(char *));
 	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (old_env[i])
@@ -58,8 +58,6 @@ char	**export_env(char **old_env, char *export)
 	}
 	free_env(old_env);
 	new_env[i] = ft_strdup(export);
-	i++;
-	new_env[i] = NULL;
 	return (new_env);
 }
 
@@ -120,21 +118,3 @@ void	ft_export(char **args, t_data *data)
 		export_alone(data);
 }
 
-// void	ft_export(char **args, t_data *data)
-// {
-// 	int	i;
-// 	int	index;
-
-// 	i = 1;
-// 	while (args[i])
-// 	{
-// 		index = var_index(args[i], data);
-// 		if (check_export(args[i]))
-// 			index >= 0 ? replace_var(args[i], data, index) : (data->env = export_env(data->env, args[i])) ? 0 : exit(EXIT_FAILURE);
-// 		else
-// 			return (error_sentence("export: bad identifier\n"));
-// 		i++;
-// 	}
-// 	if (!args[1])
-// 		export_alone(data);
-// }
