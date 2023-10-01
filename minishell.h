@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/29 22:20:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:13:05 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,21 @@ struct	s_tokenizer
 
 typedef struct s_data
 {
-
-	int				exit_status;
 	char			**env;
 	char			*pwd;
 	t_list			*lst;
 	t_tokenizer		*tokenizer;
 }				t_data;
+
+typedef struct s_pipe
+{
+	int		pipe_fd[2];
+	int		prev_in;
+	int		pid;
+	int		cmd_nb;
+	char	**cmd;
+	char 	*cmd_name;
+}				t_pipe;
 
 void	ft_export(char **args, t_data *data);
 void	export_alone(t_data *data);
@@ -116,6 +124,13 @@ char		*get_absolute_path(const char *command_name);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
 void		exec_builtin(char **cmd, t_data *data);
+
+void	setup_pipes(int *p1, int *p2, int i, int cmd_nbr);
+void	setup_nchild_pipes(int *p1, int *p2, int i);
+void	close_all_pipes(int *p1, int *p2);
+void	exec_cmd(t_data *data, char **cmd, char *cmd_name);
+void	child_exec(t_data *data, t_pipe p, int i);
+void	parent_exec(t_pipe p, int i);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/29 23:15:00 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:03:54 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	data_init(t_data *data, char **env)
 {
 	data->env = dup_env(env);
 	data->pwd = getcwd(NULL, 0);
-	data->exit_status = 0;
 }
 
 void	create_lst(t_data *data, char **arr)
@@ -79,14 +78,16 @@ int		main(int ac, char **av, char **env)
 		line = readline("> ");
 		if (!line)
 			end_of_file(&data);
+		else
+			add_history(line);
 		tmp = ft_split(line, ' ');
 		if (!tmp)
 			return (1);
 		create_lst(&data, tmp);
 		tokenizer(&data);
 		// printList(data.tokenizer);
-		print_lst(data.lst);
-		// execute(&data);
+		// print_lst(/ata.lst);
+		execute(&data);
 		// free_double_pointer(tmp);
 		free_token_list(&data.tokenizer);
 		ft_lstclear(&data.lst);
