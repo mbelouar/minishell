@@ -17,11 +17,11 @@ int	check_export(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(str[i]))    // Check if the string starts with a digit.
+	if (ft_isdigit(str[i]) || str[i] == '=')    // Check if the string starts with a digit.
 		return (0);    // Invalid: Starts with a digit.
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')     // Check if the character is not alphanumeric and not an underscore.
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')     // Check if the character is not alphanumeric and not an underscore.
 			return (0);    // Invalid: Contains a non-alphanumeric character.
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:43:56 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 17:16:04 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 00:38:26 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	child_exec(t_data *data, t_pipe p, int i)
 	if (i > 0)
 		dup2(p.prev_in, STDIN_FILENO);
 	close(p.pipe_fd[0]);
-	// setup_redirections(data.tokenizer);
 	if (p.cmd_name)
 	{
 		execve(p.cmd_name, p.cmd, data->env);
