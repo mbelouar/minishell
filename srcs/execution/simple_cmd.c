@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 13:29:19 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:43:35 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	execute_simple_cmd(t_data *data)
 	else
 		waitpid(pid, 0, 0);
 }
-

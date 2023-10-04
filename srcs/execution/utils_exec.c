@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:47:48 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 10:54:29 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:21:18 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	count_cmds(t_tokenizer *lst)
 	i = 0;
 	while (curr)
 	{
-		if (curr->type == CMD)
+		if (curr->type == CMD || curr->type == BUILTIN)
 			i++;
 		curr = curr->next;
 	}
@@ -52,7 +52,7 @@ void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 		if (curr->type == CMD)
 		{
 			cmd = ft_split(curr->content, ' ');
-			cmd_name = get_absolute_path(cmd[0]);
+			cmd_name = get_absolute_path(cmd[0], data);
 		}
 		curr = curr->next;
 	}

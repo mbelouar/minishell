@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:43:56 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 00:38:26 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:14:27 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,27 @@ void	child_exec(t_data *data, t_pipe p, int i)
 		dup2(p.pipe_fd[1], STDOUT_FILENO);
 		close(p.pipe_fd[1]);
 	}
-	if (i > 0)
-		dup2(p.prev_in, STDIN_FILENO);
+	if (i > 0) {
+		dup2(p.prev_in, STDIN_FILENO); }
 	close(p.pipe_fd[0]);
-	if (p.cmd_name)
+	if (builtin_check(p.cmd[0]))
 	{
-		execve(p.cmd_name, p.cmd, data->env);
-		perror("execve error: ");
-		exit(EXIT_FAILURE);
+		exec_builtin(p.cmd, data);
+		exit(0);
 	}
 	else
 	{
-		fprintf(stderr, "Command not found: %s\n", p.cmd[0]);
-		exit(EXIT_FAILURE);
+		if (p.cmd_name)
+		{
+			execve(p.cmd_name, p.cmd, data->env);
+			perror("execve error: ");
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			fprintf(stderr, "Command not found: %s\n", p.cmd[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 

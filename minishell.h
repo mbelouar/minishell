@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 17:13:05 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:22:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void		execute(t_data *data);
 void		execute_compound_command(t_data *data);
 void		execute_simple_cmd(t_data *data);
 void		setup_redirections(t_tokenizer *head);
-char		*get_absolute_path(const char *command_name);
+char		*get_absolute_path(const char *command_name, t_data *da);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
 void		exec_builtin(char **cmd, t_data *data);

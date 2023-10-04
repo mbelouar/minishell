@@ -62,7 +62,7 @@ char	**dup_env(char **env)
 	int		i;
 
 	i = 0;
-	data_env = ft_calloc( (envlen(env) + 1), sizeof(char*)); // ft_calloc
+	data_env = ft_calloc((envlen(env) + 1), sizeof(char*));
 	if (!data_env)
 		exit(EXIT_FAILURE);
 	while (env[i])

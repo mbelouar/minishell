@@ -6,18 +6,30 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 13:52:12 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:25:02 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *get_absolute_path(const char *command_name)
+char *get_absolute_path(const char *command_name, t_data *data)
 {
-    char *path_env = getenv("PATH");
+	int	i;
+    char *path_env;
+
+	i = 0;
+	while (data->env[i])
+	{
+		if (ft_strncmp(data->env[i], "PATH", 4) == 0)
+		{
+			path_env = data->env[i];
+			break ;
+		}
+		i++;
+	}
     if (path_env == NULL) {
         fprintf(stderr, "PATH environment variable is not set\n");
-        return NULL;
+        return (NULL);
     }
 
     char *path_copy = ft_strdup(path_env);
@@ -40,7 +52,7 @@ char *get_absolute_path(const char *command_name)
         }
     }
 	free(path_copy);
-    return result;
+    return (result);
 }
 
 void	setup_redirections(t_tokenizer *head)

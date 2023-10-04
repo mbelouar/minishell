@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 00:36:03 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:23:42 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ void	execute_compound_command(t_data *data)
 			if (curr->type == CMD)
 			{
 				p.cmd = ft_split(curr->content, ' ');
-				p.cmd_name = get_absolute_path(p.cmd[0]);
+				p.cmd_name = get_absolute_path(p.cmd[0], data);
+				break ;
+			}
+			else if (curr->type == BUILTIN)
+			{
+				p.cmd = ft_split(curr->content, ' ');
 				break ;
 			}
 			curr = curr->next->next;

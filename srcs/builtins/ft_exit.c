@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/03 23:41:58 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 22:06:03 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	is_number(char *str)
 
 void	ft_exit(char **args)
 {
+	if (!args[1])
+		exit(0);
 	if (!is_number(args[1]))
 	{
 		error_sentence("exit: numeric argument required\n");
