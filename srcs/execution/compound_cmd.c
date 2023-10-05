@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 20:23:42 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/04 23:14:40 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	execute_compound_command(t_data *data)
 			exit(EXIT_FAILURE);
 		}
 		else if (p.pid == 0)
-			child_exec(data, p, i);
+			child_exec(data, p, i, curr);
 		else
 		{
 			if (i < p.cmd_nb - 1)
