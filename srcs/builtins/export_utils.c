@@ -48,9 +48,10 @@ int	check_export(char *str)
 	}
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+		if (ft_isalnum(str[i]) == 1 || str[i] == 39 || str[i] == 34)
+			i++;
+		else
 			return (0);
-		i++;
 	}
 	return (1);
 }
