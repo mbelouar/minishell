@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 23:15:17 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/08 19:29:36 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ void	change_env_pwd(t_data *data);
 
 void	error_sentence(char *str);
 
+int	analylizer_redi(t_data	*data);
+int	analylizer_pipe(t_data	*data);
+int check_quotes(char* line);
+// void printerr(int i);
 
 t_tokenizer *new_node(char *content, t_type type);
 void		printEnumName(enum e_type value);
@@ -129,8 +133,12 @@ void	setup_pipes(int *p1, int *p2, int i, int cmd_nbr);
 void	setup_nchild_pipes(int *p1, int *p2, int i);
 void	close_all_pipes(int *p1, int *p2);
 void	exec_cmd(t_data *data, char **cmd, char *cmd_name);
-void	child_exec(t_data *data, t_pipe p, int i, t_tokenizer*);
+void	child_exec(t_data *data, t_pipe p, int i, t_tokenizer *curr);
 void	parent_exec(t_pipe p, int i);
+
+void	ft_red_out_trunc(t_tokenizer *head);
+void	ft_red_out_append(t_tokenizer *head);
+void	ft_red_in(t_tokenizer *head);
 
 
 #endif

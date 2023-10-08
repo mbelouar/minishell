@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 23:13:14 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/08 19:30:09 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,11 @@ void	setup_redirections(t_tokenizer *head)
 	while (curr && curr->type != PIPE)
 	{
 		if (curr->type == RED_OUT_TRUNC)
-		{
-			int fd = open(curr->content, O_RDWR | O_CREAT | O_TRUNC , 0644);
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
+			ft_red_out_trunc(curr);
 		else if (curr->type == RED_OUT_APPEND)
-		{
-			int fd = open(curr->content, O_RDWR | O_CREAT | O_APPEND , 0644);
-			dup2(fd, STDOUT_FILENO);
-		}
+			ft_red_out_append(curr);
 		else if (curr->type == RED_IN)
-		{
-			if (access(curr->content, F_OK) == 0)
-			{
-				int fd = open(curr->content, O_RDONLY);
-				dup2(fd, STDIN_FILENO);
-			}
-			else
-			{
-				dprintf(2, "minishell: %s: No such file or directory\n", curr->content);
-				exit(EXIT_FAILURE);
-			}
-		}
+			ft_red_in(curr);
 		curr = curr->next;
 	}
 }

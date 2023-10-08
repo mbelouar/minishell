@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/01 17:04:57 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/08 19:24:49 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,12 @@ SRC =	main.c \
 		srcs/parser/tokenizer.c \
 		srcs/parser/tokenizer_utils.c \
 		srcs/execution/exec.c \
+		srcs/execution/redir.c \
 		srcs/execution/utils_exec.c \
 		srcs/execution/utils2_exec.c \
 		srcs/execution/simple_cmd.c \
 		srcs/execution/compound_cmd.c \
+		srcs/analylizer/analylizer.c \
 
 
 LIBFT	= libft/libft.a

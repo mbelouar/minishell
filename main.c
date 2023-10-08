@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/01 13:03:54 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/08 19:42:35 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int		main(int ac, char **av, char **env)
 	t_data	data;
 	char	*line;
 	char	**tmp;
+	int err = 0;
+	int analy = 0;
 
 	(void)ac;
 	(void)av;
@@ -80,18 +82,24 @@ int		main(int ac, char **av, char **env)
 			end_of_file(&data);
 		else
 			add_history(line);
-		tmp = ft_split(line, ' ');
-		if (!tmp)
-			return (1);
-		create_lst(&data, tmp);
-		tokenizer(&data);
-		// printList(data.tokenizer);
-		// print_lst(/ata.lst);
-		execute(&data);
-		// free_double_pointer(tmp);
-		free_token_list(&data.tokenizer);
-		ft_lstclear(&data.lst);
-		// system("leaks -q minishell");
+		err = check_quotes(line);
+        if (err == 0)
+            printf("syntax error \n");
+        else
+		{
+			tmp = ft_split(line, ' ');
+			if (!tmp)
+				return (1);
+			create_lst(&data, tmp);
+			tokenizer(&data);
+			// printList(data.tokenizer);
+			// print_lst(data.lst);
+			execute(&data);
+			// free_double_pointer(tmp);
+			// system("leaks -q minishell");
+			free_token_list(&data.tokenizer);
+			ft_lstclear(&data.lst);
+		}
 	}
 	return (0);
 }
