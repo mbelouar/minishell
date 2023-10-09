@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:37 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 00:12:49 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:59:13 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_export(char **args, t_data *data)
 				if (index >= 0)
 					replace_var(args[i], data, index);
 				else
-				{   // The variable doesn't exist, add it to the environment.
+				{
 					data->env = export_env(data->env, args[i]);
 					if (!data->env)
 						exit(EXIT_FAILURE);
@@ -117,4 +117,3 @@ void	ft_export(char **args, t_data *data)
 	else
 		export_alone(data);
 }
-

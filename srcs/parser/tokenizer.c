@@ -6,44 +6,43 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 17:18:39 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:16:33 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// Function to create a new node
-t_tokenizer *new_node(char *content, t_type type)
+t_tokenizer	*new_node(char *content, t_type type)
 {
-	t_tokenizer *newNode = (t_tokenizer *)malloc(sizeof(t_tokenizer));
-	if (newNode == NULL)
-		exit(EXIT_FAILURE);
+	t_tokenizer	*n_node;
 
-	newNode->content = ft_strdup(content);
-	newNode->type = type;
-	newNode->next = NULL;
-	return (newNode);
+	n_node = (t_tokenizer *)malloc(sizeof(t_tokenizer));
+	if (n_node == NULL)
+		exit(EXIT_FAILURE);
+	n_node->content = ft_strdup(content);
+	n_node->type = type;
+	n_node->next = NULL;
+	return (n_node);
 }
 
-// Function to add a node to the back of the linked list
-void ft_create_node(t_tokenizer **head, char *content, t_type type)
+void	ft_create_node(t_tokenizer **head, char *content, t_type type)
 {
-	t_tokenizer *newNode = new_node(content, type);
+	t_tokenizer	*n_node;
+	t_tokenizer	*current;
 
+	n_node = new_node(content, type);
 	if (*head == NULL)
-		*head = newNode;
+		*head = n_node;
 	else
 	{
-		// Traverse the list to find the last node
-		t_tokenizer *current = *head;
+		current = *head;
 		while (current->next != NULL)
 			current = current->next;
-		// Add the new node to the back
-		current->next = newNode;
+		current->next = n_node;
 	}
 }
 
-void ft_redirection(t_list *curr_node, t_data *data)
+void	ft_redirection(t_list *curr_node, t_data *data)
 {
 	t_type	type;
 	char	*content;
@@ -90,12 +89,13 @@ int	builtin_check(char *cmd)
 	return (0);
 }
 
-void tokenizer(t_data *data)
+void	tokenizer(t_data *data)
 {
 	t_list		*curr;
 	t_type		type;
 	char		*content;
-	char		*tmp;
+	char		*str;
+	char		**tmp;
 
 	curr = data->lst;
 	while (curr)
@@ -107,10 +107,10 @@ void tokenizer(t_data *data)
 		}
 		else if (curr->content[0] == '|')
 		{
-			tmp = ft_strdup("|");
-			ft_create_node(&data->tokenizer, tmp, PIPE);
-			free(tmp);
-			tmp = NULL;
+			str = ft_strdup("|");
+			ft_create_node(&data->tokenizer, str, PIPE);
+			free(str);
+			str = NULL;
 		}
 		else
 		{
@@ -119,12 +119,14 @@ void tokenizer(t_data *data)
 			{
 				content = ft_strjoin(content, curr->content);
 				content = ft_strjoin(content, " ");
-				if (curr->next && (curr->next->content[0] == '|' || curr->next->content[0] == '<' || curr->next->content[0] == '>'))
+				if (curr->next && (curr->next->content[0] == '|'
+						|| curr->next->content[0] == '<'
+						|| curr->next->content[0] == '>'))
 					break ;
 				curr = curr->next;
 			}
 			content = ft_strtrim(content, " ");
-			char	**tmp = ft_split(content, ' ');
+			tmp = ft_split(content, ' ');
 			if (builtin_check(tmp[0]))
 				type = BUILTIN;
 			else

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:06:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 18:13:16 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:25:19 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (i < len_s2)
 		final_str[j++] = s2[i++];
 	final_str[j] = '\0';
-	free((void*)s1);
+	free((void *)s1);
 	return (final_str);
 }
 

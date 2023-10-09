@@ -6,11 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:30:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 17:42:32 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:53:00 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 static t_list *ft_array_to_lst(char **arr)
 {
@@ -107,9 +107,7 @@ static void	fill_s(char **dest, char const *s, char c, int words_nbr)
 					++i;
 				}
 			}
-			//
 			dest[j] =ft_substr(s, 0, i);
-		// }
 		j++;
 		s += i;
 	}

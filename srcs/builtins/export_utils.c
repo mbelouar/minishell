@@ -12,22 +12,6 @@
 
 #include "../../minishell.h"
 
-// int	check_export(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (ft_isdigit(str[i]) || str[i] == '=')    // Check if the string starts with a digit.
-// 		return (0);    // Invalid: Starts with a digit.
-// 	while (str[i] && str[i] != '=')
-// 	{
-// 		if (ft_isalnum(str[i]) == 0 && str[i] != '_')     // Check if the character is not alphanumeric and not an underscore.
-// 			return (0);    // Invalid: Contains a non-alphanumeric character.
-// 		i++;
-// 	}
-// 	return (1);      // Valid exportable variable.
-// }
-
 int	check_export(char *str)
 {
 	int	i;
@@ -42,7 +26,7 @@ int	check_export(char *str)
 			if (i == 0)
 				return (0);
 			i++;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -55,7 +39,6 @@ int	check_export(char *str)
 	}
 	return (1);
 }
-
 
 int	print_export(char **env)
 {
@@ -91,7 +74,7 @@ char	**dup_env(char **env)
 	int		i;
 
 	i = 0;
-	data_env = ft_calloc((envlen(env) + 1), sizeof(char*));
+	data_env = ft_calloc((envlen(env) + 1), sizeof(char *));
 	if (!data_env)
 		exit(EXIT_FAILURE);
 	while (env[i])

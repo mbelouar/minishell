@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 20:37:36 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:25:47 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/09 22:21:02 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/10/10 00:13:50 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	perror_exec(void)
 {
-	int	i;
+	perror("Error in execve:");
+	exit(EXIT_FAILURE);
+}
 
-	i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
+void	perror_fork(void)
+{
+	perror("Error in fork:");
+	exit(EXIT_FAILURE);
 }

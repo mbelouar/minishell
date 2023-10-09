@@ -38,8 +38,8 @@ void	change_env_oldpwd(t_data *data)
 
 	if (var_index("OLDPWD", data) >= 0)
 	{
-		pwd = ft_strjoin2("PWD=", data->pwd); //join the PWD= with the wd in the env (PWD=/path)
-		oldpwd = ft_strjoin2("OLD", pwd);  //become like this (OLDPWD=/path)
+		pwd = ft_strjoin2("PWD=", data->pwd);
+		oldpwd = ft_strjoin2("OLD", pwd);
 		replace_var(oldpwd, data, var_index("OLDPWD=", data));
 		free(oldpwd);
 		free(pwd);

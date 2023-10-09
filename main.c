@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 18:13:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:35:47 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	create_lst(t_data *data, char **arr)
 	arr = NULL;
 }
 
-void print_lst(t_list *head) {
-    t_list *current = head;
-    while (current != NULL) {
-        printf("==> %s\n", current->content);
-        current = current->next;
-    }
-}
+// void print_lst(t_list *head) {
+//     t_list *current = head;
+//     while (current != NULL) {
+//         printf("==> %s\n", current->content);
+//         current = current->next;
+//     }
+// }
 
 int	ft_token_size(t_tokenizer *lst)
 {
@@ -66,9 +66,9 @@ int	ft_token_size(t_tokenizer *lst)
 int		main(int ac, char **av, char **env)
 {
 	t_data	data;
+	t_list	*lst;
 	char	*line;
 	char	**tmp;
-	t_list	*lst;
 	int err;
 
 	tmp = NULL;
@@ -89,7 +89,7 @@ int		main(int ac, char **av, char **env)
 				err = check_quotes(line);
 				if (err == 0)
 				{
-					printf("syntax error \n");
+					dprintf(2, "minishell: syntax error near unexpected token\n");
 					free_token_list(&data.tokenizer);
 					ft_lstclear(&data.lst);
 					free(line);
@@ -99,7 +99,7 @@ int		main(int ac, char **av, char **env)
 				err = analylizer(lst);
 				if (err == 1)
 				{
-					printf("minishell: syntax error near unexpected token\n");
+					dprintf(2, "minishell: syntax error near unexpected token\n");
 					free_token_list(&data.tokenizer);
 					ft_lstclear(&data.lst);
 					ft_lstclear(&lst);

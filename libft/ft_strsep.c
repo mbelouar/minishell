@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strsep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 20:37:36 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:25:47 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/09 22:54:54 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/10/10 00:24:36 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(char *s1, char *s2)
+char	*ft_strsep(char **stringp, const char *delim)
 {
-	int	i;
+	char		*token_start;
+	char		*token_end;
+	const char	*d;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	if (*stringp == NULL)
+		return (NULL);
+	token_start = *stringp;
+	while (**stringp != '\0')
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
+		d = delim;
+		while (*d != '\0')
+		{
+			if (**stringp == *d)
+			{
+				token_end = *stringp;
+				**stringp = '\0';
+				(*stringp)++;
+				return (token_start);
+			}
+			d++;
+		}
+		(*stringp)++;
 	}
-	return (0);
+	*stringp = NULL;
+	return (token_start);
 }

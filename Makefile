@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/08 19:24:49 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/09 22:24:20 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	main.c \
 		srcs/execution/utils2_exec.c \
 		srcs/execution/simple_cmd.c \
 		srcs/execution/compound_cmd.c \
+		srcs/execution/ft_errors.c \
 		srcs/analylizer/analylizer.c \
 
 

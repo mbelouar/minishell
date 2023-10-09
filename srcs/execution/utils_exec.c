@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:47:48 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:21:16 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:04:47 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,12 @@ void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 	if (cmd_name)
 	{
 		if (execve(cmd_name, cmd, data->env) == -1)
-		{
-			perror("error in execve:");
-			exit(EXIT_FAILURE);
-		}
+			perror_exec();
 	}
 	else if (builtin_check(cmd[0]) == 0 || cmd_name == NULL)
 	{
 		dprintf(2, "minishell: command not found: %s\n", cmd[0]);
-		exit(127); // to be changed
+		exit(127);
 	}
 }
 

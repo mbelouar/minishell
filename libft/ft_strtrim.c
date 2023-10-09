@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 22:33:32 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 17:11:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:23:54 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (size_s1 && ft_strchr(set, new_s1[size_s1]))
 		size_s1--;
 	final_str = ft_substr(new_s1, 0, size_s1 + 1);
-	free((void*)s1);
+	free((void *)s1);
 	return (final_str);
 }
