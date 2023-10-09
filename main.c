@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/08 19:42:35 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:13:59 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void	create_lst(t_data *data, char **arr)
 	int	i;
 
 	i = 0;
-	t_list	*new_node;
 	while (arr[i])
 	{
-		new_node = ft_lstnew(arr[i]);
 		ft_lstadd_back(&data->lst, ft_lstnew(arr[i]));
+		free(arr[i]);
+		arr[i] = NULL;
 		i++;
 	}
+	free(arr);
+	arr = NULL;
 }
 
 void print_lst(t_list *head) {
@@ -66,39 +68,51 @@ int		main(int ac, char **av, char **env)
 	t_data	data;
 	char	*line;
 	char	**tmp;
-	int err = 0;
-	int analy = 0;
+	t_list	*lst;
+	int err;
 
-	(void)ac;
-	(void)av;
 	tmp = NULL;
 	data_init(&data, env);
 	if (!data.env)
 		exit(EXIT_FAILURE);
-	while (1)
+	if (ac && av[0])
 	{
-		line = readline("> ");
-		if (!line)
-			end_of_file(&data);
-		else
-			add_history(line);
-		err = check_quotes(line);
-        if (err == 0)
-            printf("syntax error \n");
-        else
+		while (1)
 		{
-			tmp = ft_split(line, ' ');
-			if (!tmp)
-				return (1);
-			create_lst(&data, tmp);
-			tokenizer(&data);
-			// printList(data.tokenizer);
-			// print_lst(data.lst);
-			execute(&data);
-			// free_double_pointer(tmp);
-			// system("leaks -q minishell");
-			free_token_list(&data.tokenizer);
-			ft_lstclear(&data.lst);
+			line = readline("> ");
+			if (!line)
+				end_of_file(&data);
+			else
+				add_history(line);
+				tmp = ft_split(line, ' ');
+				create_lst(&data, tmp);
+				err = check_quotes(line);
+				if (err == 0)
+				{
+					printf("syntax error \n");
+					free_token_list(&data.tokenizer);
+					ft_lstclear(&data.lst);
+					free(line);
+					continue ;
+				}
+				lst = ft_split_lst(line,'\0');
+				err = analylizer(lst);
+				if (err == 1)
+				{
+					printf("minishell: syntax error near unexpected token\n");
+					free_token_list(&data.tokenizer);
+					ft_lstclear(&data.lst);
+					ft_lstclear(&lst);
+					free(line);
+					continue ;
+				}
+				ft_lstclear(&lst);
+				tokenizer(&data);
+				execute(&data);
+				free(line);
+				free_token_list(&data.tokenizer);
+				ft_lstclear(&data.lst);
+				system("leaks -q minishell");
 		}
 	}
 	return (0);

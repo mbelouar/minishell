@@ -6,18 +6,20 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/08 19:30:09 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:23:32 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *get_absolute_path(const char *command_name, t_data *data)
+char *get_absolute_path(char *command_name, t_data *data)
 {
 	int	i;
     char *path_env;
 
 	i = 0;
+	if (access(command_name, F_OK | X_OK) == 0)
+		return (command_name);
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], "PATH", 4) == 0)

@@ -19,13 +19,13 @@ void	change_env_pwd(t_data *data)
 	data->pwd = getcwd(NULL, 0);
 	if (var_index("PWD", data) >= 0)
 	{
-		pwd = ft_strjoin("PWD=", data->pwd);
+		pwd = ft_strjoin2("PWD=", data->pwd);
 		replace_var(pwd, data, var_index(pwd, data));
 		free(pwd);
 	}
 	else
 	{
-		pwd = ft_strjoin("PWD=", data->pwd);
+		pwd = ft_strjoin2("PWD=", data->pwd);
 		data->env = export_env(data->env, pwd);
 		free(pwd);
 	}
@@ -38,8 +38,8 @@ void	change_env_oldpwd(t_data *data)
 
 	if (var_index("OLDPWD", data) >= 0)
 	{
-		pwd = ft_strjoin("PWD=", data->pwd); //join the PWD= with the wd in the env (PWD=/path)
-		oldpwd = ft_strjoin("OLD", pwd);  //become like this (OLDPWD=/path)
+		pwd = ft_strjoin2("PWD=", data->pwd); //join the PWD= with the wd in the env (PWD=/path)
+		oldpwd = ft_strjoin2("OLD", pwd);  //become like this (OLDPWD=/path)
 		replace_var(oldpwd, data, var_index("OLDPWD=", data));
 		free(oldpwd);
 		free(pwd);
@@ -59,7 +59,7 @@ int	change_pwd(t_data *data, char *input)
 	{
 		ft_putstr_fd("Error retrieving current directory\n", 2);
 		pwd = data->pwd;
-		data->pwd = ft_strjoin(pwd, "/.");
+		data->pwd = ft_strjoin2(pwd, "/.");
 		free(pwd);
 	}
 	if (curr_wd)

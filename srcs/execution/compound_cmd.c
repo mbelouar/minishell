@@ -6,11 +6,22 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/08 19:13:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:24:30 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	free_pipe_struct(t_pipe *p)
+{
+	if (p->cmd_name)
+	{
+		free(p->cmd_name);
+		p->cmd_name = NULL;
+	}
+	if (p->cmd)
+		free_double_pointer(p->cmd);
+}
 
 void	execute_compound_command(t_data *data)
 {
@@ -26,8 +37,13 @@ void	execute_compound_command(t_data *data)
 	curr = data->tokenizer;
 	while (i < p.cmd_nb)
 	{
-		while (curr && curr->type != PIPE)
+		while (curr)
 		{
+			if (curr->type == PIPE)
+			{
+				curr = curr->next;
+				continue ;
+			}
 			if (curr->type == CMD)
 			{
 				p.cmd = ft_split(curr->content, ' ');
@@ -39,13 +55,10 @@ void	execute_compound_command(t_data *data)
 				p.cmd = ft_split(curr->content, ' ');
 				break ;
 			}
-			curr = curr->next->next;
+			curr = curr->next;
 		}
 		if (i != (p.cmd_nb - 1))
-		{
-			curr = curr->next->next;
 			pipe(p.pipe_fd);
-		}
 		p.pid = fork();
 		if (p.pid < 0)
 		{
@@ -62,6 +75,9 @@ void	execute_compound_command(t_data *data)
 				close(p.prev_in);
 			p.prev_in = p.pipe_fd[0];
 		}
+		if (curr->type == CMD || curr->type == BUILTIN)
+			curr = curr->next;
+		free_pipe_struct(&p);
 		child_pids[i] = p.pid;
 		i++;
 	}

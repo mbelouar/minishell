@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/08 19:29:36 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:35:12 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,11 @@ void	change_env_pwd(t_data *data);
 
 void	error_sentence(char *str);
 
-int	analylizer_redi(t_data	*data);
-int	analylizer_pipe(t_data	*data);
+// int	analylizer_redi(t_data	*data);
+// int	analylizer_pipe(t_data	*data);
 int check_quotes(char* line);
+int	analylizer(t_list *list);
+
 // void printerr(int i);
 
 t_tokenizer *new_node(char *content, t_type type);
@@ -124,7 +126,7 @@ void		execute(t_data *data);
 void		execute_compound_command(t_data *data);
 void		execute_simple_cmd(t_data *data);
 void		setup_redirections(t_tokenizer *head);
-char		*get_absolute_path(const char *command_name, t_data *da);
+char		*get_absolute_path( char *command_name, t_data *da);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
 void		exec_builtin(char **cmd, t_data *data);
@@ -139,6 +141,5 @@ void	parent_exec(t_pipe p, int i);
 void	ft_red_out_trunc(t_tokenizer *head);
 void	ft_red_out_append(t_tokenizer *head);
 void	ft_red_in(t_tokenizer *head);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/05 22:47:34 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:18:39 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_tokenizer *new_node(char *content, t_type type)
 	newNode->content = ft_strdup(content);
 	newNode->type = type;
 	newNode->next = NULL;
-
 	return (newNode);
 }
 
@@ -96,6 +95,7 @@ void tokenizer(t_data *data)
 	t_list		*curr;
 	t_type		type;
 	char		*content;
+	char		*tmp;
 
 	curr = data->lst;
 	while (curr)
@@ -106,7 +106,12 @@ void tokenizer(t_data *data)
 			curr = curr->next;
 		}
 		else if (curr->content[0] == '|')
-			ft_create_node(&data->tokenizer, ft_strdup("|"), PIPE);
+		{
+			tmp = ft_strdup("|");
+			ft_create_node(&data->tokenizer, tmp, PIPE);
+			free(tmp);
+			tmp = NULL;
+		}
 		else
 		{
 			content = ft_strdup("");
@@ -126,6 +131,8 @@ void tokenizer(t_data *data)
 				type = CMD;
 			free_double_pointer(tmp);
 			ft_create_node(&data->tokenizer, content, type);
+			free(content);
+			content = NULL;
 		}
 		if (curr == NULL)
 			break ;
