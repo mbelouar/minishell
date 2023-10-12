@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:16:33 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:23:14 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_redirection(t_list *curr_node, t_data *data)
 	t_type	type;
 	char	*content;
 
+	content = NULL;
 	if (curr_node->content[0] == '>' && curr_node->content[1] == '>')
 	{
 		type = RED_OUT_APPEND;

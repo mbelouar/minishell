@@ -40,6 +40,15 @@ int	check_export(char *str)
 	return (1);
 }
 
+void	replace_var(char *new_var, t_data *data, int index)
+{
+	if (ft_strchr(new_var, '='))
+	{
+		free(data->env[index]);
+		data->env[index] = ft_strdup(new_var);
+	}
+}
+
 int	print_export(char **env)
 {
 	int	i;

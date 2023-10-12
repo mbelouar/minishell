@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:35:47 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:27:43 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	end_of_file(t_data *data)
 	free_env(data->env);
 	free(data->pwd);
 	ft_putstr_fd("exit\n", 2);
+	g_status = 0;
 	exit(EXIT_SUCCESS);
 }
 
@@ -63,6 +64,18 @@ int	ft_token_size(t_tokenizer *lst)
 	return (size);
 }
 
+void	signal_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_status = 1;
+	}
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -75,6 +88,8 @@ int		main(int ac, char **av, char **env)
 	data_init(&data, env);
 	if (!data.env)
 		exit(EXIT_FAILURE);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	if (ac && av[0])
 	{
 		while (1)
@@ -84,35 +99,35 @@ int		main(int ac, char **av, char **env)
 				end_of_file(&data);
 			else
 				add_history(line);
-				tmp = ft_split(line, ' ');
-				create_lst(&data, tmp);
-				err = check_quotes(line);
-				if (err == 0)
-				{
-					dprintf(2, "minishell: syntax error near unexpected token\n");
-					free_token_list(&data.tokenizer);
-					ft_lstclear(&data.lst);
-					free(line);
-					continue ;
-				}
-				lst = ft_split_lst(line,'\0');
-				err = analylizer(lst);
-				if (err == 1)
-				{
-					dprintf(2, "minishell: syntax error near unexpected token\n");
-					free_token_list(&data.tokenizer);
-					ft_lstclear(&data.lst);
-					ft_lstclear(&lst);
-					free(line);
-					continue ;
-				}
-				ft_lstclear(&lst);
-				tokenizer(&data);
-				execute(&data);
-				free(line);
+			tmp = ft_split(line, ' ');
+			create_lst(&data, tmp);
+			err = check_quotes(line);
+			if (err == 0)
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 				free_token_list(&data.tokenizer);
 				ft_lstclear(&data.lst);
-				system("leaks -q minishell");
+				free(line);
+				continue ;
+			}
+			lst = ft_split_lst(line,'\0');
+			err = analylizer(lst);
+			if (err == 1)
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+				free_token_list(&data.tokenizer);
+				ft_lstclear(&data.lst);
+				ft_lstclear(&lst);
+				free(line);
+				continue ;
+			}
+			ft_lstclear(&lst);
+			tokenizer(&data);
+			execute(&data);
+			free(line);
+			free_token_list(&data.tokenizer);
+			ft_lstclear(&data.lst);
+			system("leaks -q minishell");
 		}
 	}
 	return (0);

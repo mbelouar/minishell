@@ -6,18 +6,40 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:18:25 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:58:17 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:09:07 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_count_words(char const *s)
+void	check_split_red(char const *s, int *i, int *quote, int *token)
+{
+	if (ft_strchr("<>|", s[*i]) && s[*i])
+	{
+		*token = s[(*i)++];
+		while (s[*i] == *token)
+			++(*i);
+	}
+	else
+	{
+		while (!ft_strchr("<|>", s[*i]) && s[*i] && s[*i] != ' ')
+		{
+			*quote = 0;
+			if (s[*i] == 34 || s[*i] == 39)
+				*quote = s[(*i)++];
+			while (*quote && s[*i] != *quote)
+				(*i)++;
+			++(*i);
+		}
+	}
+}
+
+int	ft_count_words(char const *s)
 {
 	int	i;
 	int	cnt;
-	int quote;
-	int 	token;
+	int	quote;
+	int	token;
 
 	i = 0;
 	cnt = 0;
@@ -27,24 +49,7 @@ int ft_count_words(char const *s)
 			i++;
 		if (s[i])
 			cnt++;
-		if (ft_strchr("<>|",s[i]) && s[i])
-		{
-			token = s[i++];
-			while (s[i] == token)
-				++i;
-		}
-		else
-		{
-			while(!ft_strchr("<|>",s[i]) && s[i] && s[i] != ' ')
-			{
-				quote = 0;
-				if (s[i] == 34 || s[i] == 39)
-					quote = s[i++];
-				while (quote && s[i] != quote)
-					i++;
-				++i;
-			}
-		}
+		check_split_red(s, &i, &quote, &token);
 	}
 	return (cnt);
 }
@@ -53,8 +58,8 @@ void	fill_s(char **dest, char const *s, char c, int words_nbr)
 {
 	int	i;
 	int	j;
-	int quote;
-	int token;
+	int	quote;
+	int	token;
 
 	(void)c;
 	j = 0;
@@ -63,25 +68,8 @@ void	fill_s(char **dest, char const *s, char c, int words_nbr)
 		i = 0;
 		while (*s && *s == ' ')
 			++s;
-			if (ft_strchr("<>|",s[i]) && s[i])
-			{
-				token = s[i++];
-				while (s[i] == token)
-					++i;
-			}
-			else
-			{
-				while(!ft_strchr("<|>",s[i]) && s[i] && s[i] != ' ')
-				{
-					quote = 0;
-					if (s[i] == 34 || s[i] == 39)
-						quote = s[i++];
-					while (quote && s[i] != quote)
-						i++;
-					++i;
-				}
-			}
-			dest[j] = ft_substr(s, 0, i);
+		check_split_red(s, &i, &quote, &token);
+		dest[j] = ft_substr(s, 0, i);
 		j++;
 		s += i;
 	}

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 22:44:04 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:20:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:29:37 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	analylizer(t_list *list)
 		if (*curr->content == '|' || *curr->content == '<'
 			|| *curr->content == '>')
 		{
+			if (ft_strlen(curr->content) > 1 && pipe)
+				return (1);
 			if (ft_strlen(curr->content) > 2)
 				return (1);
 			else if (!curr->next)
@@ -33,6 +35,8 @@ int	analylizer(t_list *list)
 			else if (ft_strchr("|", *(curr->next->content)) && pipe)
 				return (1);
 		}
+		else if (*curr->content == '&' || *curr->content == ';')
+			return (1);
 		curr = curr->next;
 	}
 	return (0);
@@ -40,34 +44,18 @@ int	analylizer(t_list *list)
 
 int	check_quotes(char *line)
 {
-	int	q;
-	int	i;
-	int	type;
+	int	single_q;
+	int	double_q;
 
-	q = 0;
-	i = 0;
-	type = 0;
-	while (line[i])
+	single_q = 0;
+	double_q = 0;
+	while (*line)
 	{
-		if ((type == 0 && q == 0) && (line[i] == 34 || line[i] == 39))
-		{
-			type = line[i++];
-			q++;
-		}
-		if (line[i] == type)
-		{
-			q++;
-			i++;
-		}
-		if (q == 2 && (line[i] == 34 || line[i] == 39))
-		{
-			type = line[i];
-			q = 1;
-			i++;
-		}
-		i++;
+		if (*line == '\'')
+			single_q++;
+		else if (*line == '"')
+			double_q++;
+		line++;
 	}
-	if (q % 2 == 0)
-		return (1);
-	return (0);
+	return ((single_q + double_q) % 2 == 0);
 }

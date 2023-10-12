@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:58:54 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:23:18 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:32:29 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ char	*ft_strsep(char **stringp, const char *delim);
 t_list	*ft_lstnew(char *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_split_lst(char const *s, char c);
+void	check_split_red(char const *s, int *i, int *quote, int *token);
+void	fill_s(char **dest, char const *s, char c, int words_nbr);
+int		ft_count_words(char const *s);
 
 #endif

@@ -6,11 +6,24 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 20:58:38 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:22:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static void	fill_new_str(char *s, char *res, int *i, int *j)
+{
+	while (s[*i])
+	{
+		if (s[*i] != 34 && s[*i] != 39)
+		{
+			res[*j] = s[*i];
+			(*j)++;
+		}
+		(*i)++;
+	}
+}
 
 char	*ft_remove_quotes(char *s)
 {
@@ -30,21 +43,12 @@ char	*ft_remove_quotes(char *s)
 	res = ft_calloc(len, sizeof(char));
 	i = 0;
 	j = 0;
-	while (s[i])
-	{
-		if (s[i] != 34 && s[i] != 39)
-		{
-			res[j] = s[i];
-			j++;
-		}
-		i++;
-	}
+	fill_new_str(s, res, &i, &j);
 	return (res);
 }
 
 void	ft_echo(char **args)
 {
-	char	*arg;
 	int		i;
 	int		n;
 

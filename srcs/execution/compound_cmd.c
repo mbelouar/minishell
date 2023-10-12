@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 22:47:42 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:05:27 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ void	execute_compound_command(t_data *data)
 	int			i;
 	t_pipe		p;
 	t_tokenizer	*curr;
+	int			*child_pids;
 
 	i = 0;
 	p.prev_in = 0;
 	p.cmd_name = NULL;
 	p.cmd_nb = count_cmds(data->tokenizer);
-	pid_t child_pids[p.cmd_nb];
+	child_pids = ft_calloc(p.cmd_nb, sizeof(int));
 	curr = data->tokenizer;
 	while (i < p.cmd_nb)
 	{
@@ -81,4 +82,5 @@ void	execute_compound_command(t_data *data)
 	i = -1;
 	while (++i < p.cmd_nb)
 		waitpid(child_pids[i], NULL, 0);
+	free(child_pids);
 }

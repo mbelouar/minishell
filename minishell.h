@@ -6,16 +6,18 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:36:21 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:05:29 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <term.h>
 # include <curses.h>
 # include <termios.h>
+# include <dirent.h>
 # include <stdint.h>
 # include <sys/ioctl.h>
 # include <stdlib.h>
@@ -26,6 +28,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "libft/libft.h"
 # include <fcntl.h>
 
@@ -46,6 +49,8 @@ enum	e_type
 	RED_IN,
 	HEREDOC
 };
+
+int	g_status;
 
 struct	s_tokenizer
 {
@@ -76,6 +81,7 @@ void		ft_export(char **args, t_data *data);
 void		export_alone(t_data *data);
 char		**export_env(char **old_env, char *export);
 void		replace_var(char *new_var, t_data *data, int index);
+void		exp_and_check(t_data *data, char **args, int *i);
 int			var_index(char *name, t_data *data);
 int			check_export(char *str);
 int			print_export(char **env);
@@ -102,10 +108,9 @@ int			change_pwd(t_data *data, char *input);
 void		change_env_oldpwd(t_data *data);
 void		change_env_pwd(t_data *data);
 
-void		error_sentence(char *str);
 
-int			check_quotes(char *line);
 int			analylizer(t_list *list);
+int			check_quotes(char *line);
 
 t_tokenizer	*new_node(char *content, t_type type);
 void		printEnumName(enum e_type value);
@@ -140,7 +145,11 @@ void		ft_red_out_trunc(t_tokenizer *head);
 void		ft_red_out_append(t_tokenizer *head);
 void		ft_red_in(t_tokenizer *head);
 
+void		error_sentence(char *str);
 void		perror_exec(void);
 void		perror_fork(void);
 
+
+
+void	ft_heredoc(char		*delimiter);
 #endif

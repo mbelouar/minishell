@@ -6,13 +6,13 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:30:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 20:53:00 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:13:58 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static t_list *ft_array_to_lst(char **arr)
+static t_list	*ft_array_to_lst(char **arr)
 {
 	int		i;
 	t_list	*lst;
@@ -28,95 +28,20 @@ static t_list *ft_array_to_lst(char **arr)
 			return (NULL);
 		ft_lstadd_back(&lst, node);
 	}
-	for (int i = 0; arr[i]; i++)
+	i = 0;
+	while (arr[i])
 	{
 		free(arr[i]);
 		arr[i] = NULL;
+		i++;
 	}
 	free(arr);
 	arr = NULL;
 	return (lst);
 }
 
-static int ft_count_words(char const *s)
+t_list	*ft_split_lst(char const *s, char c)
 {
-	int	i;
-	int	cnt;
-	int quote;
-	int 	token;
-
-	i = 0;
-	cnt = 0;
-	while (s[i])
-	{
-		while (s[i] == ' ' || s[i] == '\t')
-			i++;
-		if (s[i])
-			cnt++;
-		if (ft_strchr("<>|",s[i]) && s[i])
-		{
-			token = s[i++];
-			while (s[i] == token)
-				++i;
-		}
-		else
-		{
-			while(!ft_strchr("<|>",s[i]) && s[i] && s[i] != ' ')
-			{
-				quote = 0;
-				if (s[i] == 34 || s[i] == 39)
-					quote = s[i++];
-				while (quote && s[i] != quote)
-					i++;
-				++i;
-			}
-		}
-	}
-	return (cnt);
-}
-
-static void	fill_s(char **dest, char const *s, char c, int words_nbr)
-{
-	int	i;
-	int	j;
-	int quote;
-	int token;
-
-	(void)c;
-	j = 0;
-	while (j < words_nbr)
-	{
-		i = 0;
-		while (*s && *s == ' ')
-			++s;
-			if (ft_strchr("<>|",s[i]) && s[i])
-			{
-				token = s[i++];
-				while (s[i] == token)
-					++i;
-			}
-			else
-			{
-				while(!ft_strchr("<|>",s[i]) && s[i] && s[i] != ' ')
-				{
-					quote = 0;
-					if (s[i] == 34 || s[i] == 39)
-						quote = s[i++];
-					while (quote && s[i] != quote)
-						i++;
-					++i;
-				}
-			}
-			dest[j] =ft_substr(s, 0, i);
-		j++;
-		s += i;
-	}
-	dest[j] = NULL;
-}
-
-t_list *ft_split_lst(char const *s, char c)
-{
-	//
 	char	**dest;
 	int		count_word;
 

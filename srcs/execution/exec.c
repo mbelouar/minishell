@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 23:04:14 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:23:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 char	*get_absolute_path(char *command_name, t_data *data)
 {
+	DIR		*dir;
 	int		i;
 	char	*path_env;
 
 	i = 0;
+	dir = opendir(command_name);
+	if (dir != NULL)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(command_name, 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		closedir(dir);
+		exit(EXIT_FAILURE);
+	}
 	if (access(command_name, F_OK | X_OK) == 0)
 		return (command_name);
 	while (data->env[i])
@@ -54,23 +64,6 @@ char	*get_absolute_path(char *command_name, t_data *data)
 	}
 	free(path_copy);
 	return (result);
-}
-
-void	setup_redirections(t_tokenizer *head)
-{
-	t_tokenizer	*curr;
-
-	curr = head;
-	while (curr && curr->type != PIPE)
-	{
-		if (curr->type == RED_OUT_TRUNC)
-			ft_red_out_trunc(curr);
-		else if (curr->type == RED_OUT_APPEND)
-			ft_red_out_append(curr);
-		else if (curr->type == RED_IN)
-			ft_red_in(curr);
-		curr = curr->next;
-	}
 }
 
 void	execute(t_data *data)

@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/09 22:24:20 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/12 22:42:03 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,22 +38,25 @@ SRC =	main.c \
 		srcs/analylizer/analylizer.c \
 
 
+RLFLGS        = -L/Users/mbelouar/goinfre/homebrew/opt/readline/lib -lreadline
+RLOFLGS        = -I/Users/mbelouar/goinfre/homebrew/
+
 LIBFT	= libft/libft.a
 NAME = minishell
 CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
-INCLUDE	= -L libft -lft #-I ../minishell.h
+INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
 
 all: $(NAME) clean
 
 $(NAME): $(OBJS)
 	@make -C libft
-	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) -lreadline
+	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) $(RLFLGS)
 
 %.o: %.c
-	@$(CC) -c $< -o $@
+	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS)

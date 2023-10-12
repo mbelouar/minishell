@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 21:55:22 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:31:58 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,52 @@ void	ft_red_in(t_tokenizer *head)
 	{
 		dprintf(2, "minishell: %s: No such file or directory\n", curr->content);
 		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_heredoc(char		*delimiter)
+{
+	// check if delimiter has quotes -> true dont expand else expand
+	int			fd[2];
+	char		*line;
+	// char		*expanded;
+	int			has_quotes;
+
+	pipe(fd);
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if (!ft_strncmp(line, delimiter, ft_strlen(line)))
+			break ;
+		// expanded = ft_expander(line);
+		// if (expanded && !has_quotes)
+		// 	write(pipe_fd[1], expanded, ft_strlen(expanded));
+		// else
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 1);
+		free(line);
+	}
+	if (line)
+		free(line);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[1]);
+}
+
+void	setup_redirections(t_tokenizer *head)
+{
+	t_tokenizer	*curr;
+
+	curr = head;
+	while (curr && curr->type != PIPE)
+	{
+		if (curr->type == RED_OUT_TRUNC)
+			ft_red_out_trunc(curr);
+		else if (curr->type == RED_OUT_APPEND)
+			ft_red_out_append(curr);
+		else if (curr->type == RED_IN)
+			ft_red_in(curr);
+		else if (curr->type == HEREDOC)
+			ft_heredoc(curr->content);
+		curr = curr->next;
 	}
 }

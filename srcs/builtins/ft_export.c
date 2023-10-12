@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:37 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 20:59:13 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:25:39 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ int	var_index(char *name, t_data *data)
 		i++;
 	}
 	return (-1);
-}
-
-void	replace_var(char *new_var, t_data *data, int index)
-{
-	if (ft_strchr(new_var, '='))
-	{
-		free(data->env[index]);
-		data->env[index] = ft_strdup(new_var);
-	}
 }
 
 char	**export_env(char **old_env, char *export)
@@ -87,6 +78,13 @@ void	export_alone(t_data *data)
 	free_env(tmp_env);
 }
 
+void	exp_and_check(t_data *data, char **args, int *i)
+{
+	data->env = export_env(data->env, args[*i]);
+	if (!data->env)
+		exit(EXIT_FAILURE);
+}
+
 void	ft_export(char **args, t_data *data)
 {
 	int	i;
@@ -103,11 +101,7 @@ void	ft_export(char **args, t_data *data)
 				if (index >= 0)
 					replace_var(args[i], data, index);
 				else
-				{
-					data->env = export_env(data->env, args[i]);
-					if (!data->env)
-						exit(EXIT_FAILURE);
-				}
+					exp_and_check(data, args, &i);
 			}
 			else
 				return (error_sentence("export: not a valid identifier\n"));
