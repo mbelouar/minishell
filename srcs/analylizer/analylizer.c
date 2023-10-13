@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 22:44:04 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 23:29:37 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 00:27:51 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	analylizer(t_list *list)
 	curr = list;
 	while (curr)
 	{
+		if (*(list->content) == '|')
+			return (1);
 		pipe = *curr->content == '|';
 		if (*curr->content == '|' || *curr->content == '<'
 			|| *curr->content == '>')
@@ -44,18 +46,18 @@ int	analylizer(t_list *list)
 
 int	check_quotes(char *line)
 {
-	int	single_q;
-	int	double_q;
+	int	single;
+	int	d_quotes;
 
-	single_q = 0;
-	double_q = 0;
+	single = 0;
+	d_quotes = 0;
 	while (*line)
 	{
-		if (*line == '\'')
-			single_q++;
-		else if (*line == '"')
-			double_q++;
+		if (*line == '\'' && !d_quotes)
+		single = !single;
+		if (*line == '\"' && !single)
+			d_quotes = !d_quotes;
 		line++;
 	}
-	return ((single_q + double_q) % 2 == 0);
+	return (single || d_quotes);
 }

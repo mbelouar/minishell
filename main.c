@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 23:27:43 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 00:12:00 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	create_lst(t_data *data, char **arr)
 	arr = NULL;
 }
 
-// void print_lst(t_list *head) {
-//     t_list *current = head;
-//     while (current != NULL) {
-//         printf("==> %s\n", current->content);
-//         current = current->next;
-//     }
-// }
+void print_lst(t_list *head) {
+    t_list *current = head;
+    while (current != NULL) {
+        printf("==> %s\n", current->content);
+        current = current->next;
+    }
+}
 
 int	ft_token_size(t_tokenizer *lst)
 {
@@ -102,7 +102,7 @@ int		main(int ac, char **av, char **env)
 			tmp = ft_split(line, ' ');
 			create_lst(&data, tmp);
 			err = check_quotes(line);
-			if (err == 0)
+			if (err == 1)
 			{
 				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 				free_token_list(&data.tokenizer);
