@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 22:22:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:49:12 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	ft_echo(char **args)
 	n = 0;
 	while (args[i] && args[i][0] == '-' && args[i][1] == 'n')
 	{
+		if (args[i][2] != 'n' && args[i][2] != '\0')
+		{
+			n = 0;
+			break ;
+		}
 		n++;
 		i++;
 	}

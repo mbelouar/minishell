@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:21:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 00:13:50 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:22:58 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,9 @@ void	perror_fork(void)
 	perror("Error in fork:");
 	exit(EXIT_FAILURE);
 }
+
+void	error_sentence(char *str)
+{
+	ft_putstr_fd(str, 2);
+}
+

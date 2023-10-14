@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/12 22:42:03 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/14 20:11:07 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,8 @@ SRC =	main.c \
 		srcs/analylizer/analylizer.c \
 
 
-RLFLGS        = -L/Users/mbelouar/goinfre/homebrew/opt/readline/lib -lreadline
-RLOFLGS        = -I/Users/mbelouar/goinfre/homebrew/
+RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
+RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
 
 LIBFT	= libft/libft.a
 NAME = minishell

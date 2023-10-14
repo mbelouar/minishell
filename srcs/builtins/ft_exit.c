@@ -6,16 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/04 22:06:03 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:06:31 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	error_sentence(char *str)
-{
-	ft_putstr_fd(str, 2);
-}
 
 int	is_number(char *str)
 {

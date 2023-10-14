@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 22:44:04 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 00:27:51 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:21:59 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_quotes(char *line)
 	while (*line)
 	{
 		if (*line == '\'' && !d_quotes)
-		single = !single;
+			single = !single;
 		if (*line == '\"' && !single)
 			d_quotes = !d_quotes;
 		line++;

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 23:05:29 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:19:53 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ void		ft_red_out_append(t_tokenizer *head);
 void		ft_red_in(t_tokenizer *head);
 
 void		error_sentence(char *str);
+void		ft_cmd_not_found(char *str);
 void		perror_exec(void);
 void		perror_fork(void);
 
+void		ft_heredoc(char		*delimiter);
 
-
-void	ft_heredoc(char		*delimiter);
 #endif

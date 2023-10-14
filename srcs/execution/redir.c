@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 00:31:58 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:12:55 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	ft_red_in(t_tokenizer *head)
 	}
 	else
 	{
-		dprintf(2, "minishell: %s: No such file or directory\n", curr->content);
+		error_sentence("minishell: ");
+		ft_putstr_fd(curr->content, 2);
+		error_sentence(": No such file or directory\n");
 		exit(EXIT_FAILURE);
 	}
 }

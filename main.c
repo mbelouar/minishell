@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 00:12:00 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:30:04 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ void	create_lst(t_data *data, char **arr)
 	arr = NULL;
 }
 
-void print_lst(t_list *head) {
-    t_list *current = head;
-    while (current != NULL) {
-        printf("==> %s\n", current->content);
-        current = current->next;
-    }
-}
+// void print_lst(t_list *head)
+// {
+// 	t_list *current = head;
+
+// 	while (current != NULL)
+// 	{
+// 		printf("==> %s\n", current->content);
+// 		current = current->next;
+// 	}
+// }
 
 int	ft_token_size(t_tokenizer *lst)
 {
@@ -94,7 +97,7 @@ int		main(int ac, char **av, char **env)
 	{
 		while (1)
 		{
-			line = readline("> ");
+			line = readline("friw-kriw@ ");
 			if (!line)
 				end_of_file(&data);
 			else

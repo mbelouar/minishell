@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 23:23:17 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:56:41 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*get_absolute_path(char *command_name, t_data *data)
 	dir = opendir(command_name);
 	if (dir != NULL)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		error_sentence("minishell: ");
 		ft_putstr_fd(command_name, 2);
-		ft_putstr_fd(": is a directory\n", 2);
+		error_sentence(": is a directory\n");
 		closedir(dir);
 		exit(EXIT_FAILURE);
 	}
@@ -40,7 +40,7 @@ char	*get_absolute_path(char *command_name, t_data *data)
 		i++;
 	}
 	if (path_env == NULL) {
-		fprintf(stderr, "PATH environment variable is not set\n");
+		error_sentence("PATH environment variable is not set\n");
 		return (NULL);
 	}
 	char *path_copy = ft_strdup(path_env);
