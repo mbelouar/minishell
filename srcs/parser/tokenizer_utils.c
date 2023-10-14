@@ -6,38 +6,11 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/10 16:40:41 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/15 00:08:19 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// void	printEnumName(enum e_type value)
-// {
-// 	const char *e_type_names[] = {
-// 		"CMD",
-// 		"BUILTIN",
-// 		"PIPE",
-// 		"RED_OUT_TRUNC",
-// 		"RED_OUT_APPEND",
-// 		"RED_IN",
-// 		"HEREDOC"
-// 	};
-// 	if (value == CMD)
-// 		printf("Type: %s\n", e_type_names[0]);
-// 	if (value == BUILTIN)
-// 		printf("Type: %s\n", e_type_names[1]);
-// 	if (value == PIPE)
-// 		printf("Type: %s\n", e_type_names[2]);
-// 	if (value == RED_OUT_TRUNC)
-// 		printf("Type: %s\n", e_type_names[3]);
-// 	if (value == RED_OUT_APPEND)
-// 		printf("Type: %s\n", e_type_names[4]);
-// 	if (value == RED_IN)
-// 		printf("Type: %s\n", e_type_names[5]);
-// 	if (value == HEREDOC)
-// 		printf("Type: %s\n", e_type_names[6]);
-// }
 
 void	free_token_list(t_tokenizer **lst)
 {
@@ -69,6 +42,34 @@ void	free_double_pointer(char **arr)
 	free(arr);
 	arr = NULL;
 }
+
+// void	printEnumName(enum e_type value)
+// {
+// 	const char *e_type_names[] = {
+// 		"CMD",
+// 		"BUILTIN",
+// 		"PIPE",
+// 		"RED_OUT_TRUNC",
+// 		"RED_OUT_APPEND",
+// 		"RED_IN",
+// 		"HEREDOC"
+// 	};
+// 	if (value == CMD)
+// 		printf("Type: %s\n", e_type_names[0]);
+// 	if (value == BUILTIN)
+// 		printf("Type: %s\n", e_type_names[1]);
+// 	if (value == PIPE)
+// 		printf("Type: %s\n", e_type_names[2]);
+// 	if (value == RED_OUT_TRUNC)
+// 		printf("Type: %s\n", e_type_names[3]);
+// 	if (value == RED_OUT_APPEND)
+// 		printf("Type: %s\n", e_type_names[4]);
+// 	if (value == RED_IN)
+// 		printf("Type: %s\n", e_type_names[5]);
+// 	if (value == HEREDOC)
+// 		printf("Type: %s\n", e_type_names[6]);
+// }
+
 
 // void printList(t_tokenizer *head)
 // {
