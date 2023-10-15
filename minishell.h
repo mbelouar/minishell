@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 22:19:53 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:42:31 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ void		ft_cmd_not_found(char *str);
 void		perror_exec(void);
 void		perror_fork(void);
 
-void		ft_heredoc(char		*delimiter);
+void		ft_heredoc(char *delimiter);
+void		signal_handler(int signum);
+void		signal_heredoc(int signum);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 22:30:04 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:41:32 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,6 @@ int	ft_token_size(t_tokenizer *lst)
 		lst = lst->next;
 	}
 	return (size);
-}
-
-void	signal_handler(int signum)
-{
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_status = 1;
-	}
 }
 
 int		main(int ac, char **av, char **env)

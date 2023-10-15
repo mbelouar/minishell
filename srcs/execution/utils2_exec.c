@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:43:56 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 22:24:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:44:20 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_in_child(t_pipe p, t_data *data)
 	}
 	else
 	{
-		dprintf(2, "Command not found: %s\n", p.cmd[0]);
+		error_sentence("minishell: command not found\n");
 		exit(EXIT_FAILURE);
 	}
 }

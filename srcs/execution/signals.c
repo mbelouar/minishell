@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 22:21:02 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 20:30:21 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/15 20:40:52 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/10/15 20:41:37 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	perror_exec(void)
+void	signal_handler(int signum)
 {
-	perror("Error in execve:");
-	exit(EXIT_FAILURE);
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_status = 1;
+	}
 }
 
-void	perror_fork(void)
+void	signal_heredoc(int signum)
 {
-	perror("Error in fork:");
-	exit(EXIT_FAILURE);
+	if (signum == SIGINT)
+	{
+		g_status = 1;
+		exit(1);
+	}
 }
-
-void	error_sentence(char *str)
-{
-	ft_putstr_fd(str, 2);
-}
-

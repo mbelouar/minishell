@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 22:12:55 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:41:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ void	ft_heredoc(char		*delimiter)
 	int			has_quotes;
 
 	pipe(fd);
+	signal(SIGINT, signal_heredoc);
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (!ft_strncmp(line, delimiter, ft_strlen(line)))
+		if (!ft_strcmp(line, delimiter))
 			break ;
 		// expanded = ft_expander(line);
 		// if (expanded && !has_quotes)
@@ -98,3 +99,4 @@ void	setup_redirections(t_tokenizer *head)
 		curr = curr->next;
 	}
 }
+
