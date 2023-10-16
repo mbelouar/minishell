@@ -6,46 +6,50 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:44 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:46:03 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/16 23:17:28 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void ft_mini_expen(t_tokenizer *token, char **env)
+void	ft_mini_expen(t_tokenizer *token, char **env)
 {
-	t_tokenizer *cmd = token;
+	t_tokenizer	*cmd;
 
+	cmd = token;
 	while (cmd)
 	{
-		cmd->content = get_expand(cmd->content,env);
+		cmd->content = get_expand(cmd->content, env);
 		cmd = cmd->next;
 	}
 }
 
-char *get_expand(char *content,char **env)
+char	*get_expand(char *content, char **env)
 {
-	int len = get_str_len(content,env);
-	char *str = get_new_string(len,content,env);
+	int		len;
+	char	*str;
+
+	len = get_str_len(content, env);
+	str = get_new_string(len, content, env);
 	free(content);
 	return (str);
 }
 
-int get_str_len(char* data, char **env)
+int	get_str_len(char *data, char **env)
 {
-	t_tokenizer s;
+	t_tokenizer	s;
 
 	s.i = 0;
 	s.len = 0;
-	while(data[s.i])
+	while (data[s.i])
 	{
-		if(data[s.i] && data[s.i] != '\'')
+		if (data[s.i] && data[s.i] != '\'')
 		{
 			s.len++;
 			s.i++;
 		}
 		else if (data[s.i] == '$' && ++s.i)
-			ft_get_len(&s,data,env);
+			ft_get_len(&s, data, env);
 		else
 		{
 			s.len++;
@@ -55,18 +59,18 @@ int get_str_len(char* data, char **env)
 	return (s.len);
 }
 
-void ft_get_len(t_tokenizer *token, char *data, char **env)
+void	ft_get_len(t_tokenizer *token, char *data, char **env)
 {
-	if(ft_valid(data[token->i]) == 0)
+	if (ft_valid(data[token->i]) == 0)
 		token->len++;
 	else
 	{
-		token->id=  get_index(&data[token->i]);
-		token->var = get_var(token->id,env);
-		if(!token->var)
+		token->id = get_index(&data[token->i]);
+		token->var = get_var(token->id, env);
+		if (!token->var)
 		{
 			free(token->id);
-			return;
+			return ;
 		}
 		token->i = token->i + ft_strlen(token->id);
 		token->len = token->len + ft_strlen(token->var);
@@ -74,15 +78,16 @@ void ft_get_len(t_tokenizer *token, char *data, char **env)
 	}
 }
 
-void expand(t_data *data)
+void	expand(t_data *data)
 {
-	if(!data)
-		return;
-	t_tokenizer *cmd = data->tokenizer;
+	t_tokenizer	*cmd;
 
+	if (!data)
+		return ;
+	cmd = data->tokenizer;
 	while (cmd)
 	{
-		ft_mini_expen(cmd,data->env);
+		ft_mini_expen(cmd, data->env);
 		cmd = cmd->next;
 	}
 }

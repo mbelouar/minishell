@@ -6,28 +6,28 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:41 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:41:03 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/16 23:26:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *get_new_string(int len, char *content, char **env)
+char	*get_new_string(int len, char *content, char **env)
 {
-	t_tokenizer *token;
-	token = (t_tokenizer *) malloc(sizeof(t_tokenizer));
-	char *str;
+	t_tokenizer	*token;
+	char		*str;
 
-	token->dup = calloc(len + 1,sizeof(char));
-	token->i  = 0;
+	token = (t_tokenizer *)malloc(sizeof(t_tokenizer));
+	token->dup = calloc(len + 1, sizeof(char));
+	token->i = 0;
 	token->check = 0;
 	token->len = 0;
-	while(content[token->i])
+	while (content[token->i])
 	{
-		if(content[token->i]== '\'' && ++token->i)
-			ft_go(token,content);
+		if (content[token->i] == '\'' && ++token->i)
+			ft_go(token, content);
 		else if (content[token->i] == '$' && ++token->i)
-			ft_help_get_str(content,token,env);
+			ft_help_get_str(content, token, env);
 		else
 		{
 			token->dup[token->len] = content[token->i];
@@ -40,27 +40,28 @@ char *get_new_string(int len, char *content, char **env)
 	return (str);
 }
 
-void ft_help_get_str(char *content, t_tokenizer *token, char **env)
+void	ft_help_get_str(char *content, t_tokenizer *token, char **env)
 {
-	char *str = NULL;
+	char	*str;
 
-	if(ft_valid(content[token->i]) == 0)
+	str = NULL;
+	if (ft_valid(content[token->i]) == 0)
 	{
 		token->dup[token->len] = content[token->i];
 		token->len++;
 	}
 	else
 	{
-		if(ft_hundling(token,content,str,env) == 1)
-			return;
+		if (ft_hundling(token, content, str, env) == 1)
+			return ;
 	}
 }
 
-void ft_go(t_tokenizer *token, char *content)
+void	ft_go(t_tokenizer *token, char *content)
 {
 	token->dup[token->len] = '\'';
 	token->len++;
-	while(content[token->i] && content[token->i] != '\'')
+	while (content[token->i] && content[token->i] != '\'')
 	{
 		token->dup[token->len] = content[token->i];
 		token->len++;
@@ -90,7 +91,7 @@ int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env)
 	s->var = get_var(s->identify, env);
 	if (s->identify[0] == '?' && s->identify[1] == '\0')
 	{
-		string = ft_itoa(g_status); //exit.status
+		string = ft_itoa(g_status);
 		s->var = ft_strdup(string);
 		s->to_free = 1;
 		free(string);

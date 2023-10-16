@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:37:50 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:44:08 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/16 22:58:00 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,19 @@ char	*get_index(char *string)
 	return (ft_substr(string, 0, i));
 }
 
-// char	*get_value(char *id, t_env *envi)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = envi;
-// 	while (tmp)
-// 	{
-// 		if ((ft_strlen(id) == ft_strlen(tmp->key))
-// 			&& (ft_strncmp(id, tmp->key, ft_strlen(tmp->key)) == 0))
-// 		{
-// 			return (tmp->value);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	return (0);
-// }
-
 char	*get_var(char *id, char **env)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (env[i])
 	{
-		int j = 0;
+		j = 0;
 		while (env[i][j] == id[j] && id[j] != '\0')
 			j++;
 		if (env[i][j] == '=' && id[j] == '\0')
-			return &env[i][j + 1];
-
+			return (&env[i][j + 1]);
 		i++;
 	}
 	return (NULL);
