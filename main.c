@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 20:41:32 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/16 22:33:19 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		main(int ac, char **av, char **env)
 			}
 			ft_lstclear(&lst);
 			tokenizer(&data);
+			expand(&data);
 			execute(&data);
 			free(line);
 			free_token_list(&data.tokenizer);

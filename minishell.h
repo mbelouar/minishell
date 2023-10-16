@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 20:42:31 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/16 22:46:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ int	g_status;
 
 struct	s_tokenizer
 {
+	int to_free;
+	int i;
+	int check;
+	char *dup;
+	int len;
+	char *var;
+	char *id;
+	char *identify;
 	char		*content;
 	t_type		type;
 	t_tokenizer	*next;
@@ -153,5 +161,21 @@ void		perror_fork(void);
 void		ft_heredoc(char *delimiter);
 void		signal_handler(int signum);
 void		signal_heredoc(int signum);
+
+
+void expand(t_data *data);
+void ft_get_len(t_tokenizer *token, char *data, char **env);
+int get_str_len(char* data, char **env);
+char *get_expand(char *content,char **env);
+void ft_mini_expen(t_tokenizer *token, char **env);
+char *get_new_string(int len, char *content, char **env);
+void ft_help_get_str(char *content, t_tokenizer *token, char **env);
+void ft_go(t_tokenizer *token, char *content);
+char	*ft_free_new_str(t_tokenizer *s);
+int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env);
+char *get_var(char *id, char **env);
+char	*get_index(char *string);
+int	ft_valid(char c);
+// char	*ft_remove_quotes(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/15 20:43:13 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/16 22:38:43 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,9 @@ SRC =	main.c \
 		srcs/execution/ft_errors.c \
 		srcs/execution/signals.c \
 		srcs/analylizer/analylizer.c \
+		srcs/expand/expand.c \
+		srcs/expand/expand_utils.c \
+		srcs/expand/expand_utils2.c \
 
 
 RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
