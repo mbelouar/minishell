@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 22:02:30 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:33:19 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
+/*   Updated: 2023/10/19 16:16:00 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,12 @@ int		main(int ac, char **av, char **env)
 				continue ;
 			}
 			ft_lstclear(&lst);
-			tokenizer(&data);
-			expand(&data);
+			tokenizer(&data); 
 			execute(&data);
 			free(line);
 			free_token_list(&data.tokenizer);
 			ft_lstclear(&data.lst);
-			system("leaks -q minishell");
+			// system("leaks -q minishell");
 		}
 	}
 	return (0);

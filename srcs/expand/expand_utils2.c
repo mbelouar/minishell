@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 22:37:50 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:58:00 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/16 22:37:50 by mrital-           #+#    #+#             */
+/*   Updated: 2023/10/19 16:15:44 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ char	*get_var(char *id, char **env)
 			return (&env[i][j + 1]);
 		i++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }

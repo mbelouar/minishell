@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 22:46:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:04:35 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ enum	e_type
 
 int	g_status;
 
+/*
+typedef struct s_env
+{
+	char *value;
+	char *id;
+	struct s_env *next;
+	struct s_env *prev;
+}t_env;
+
+*/
+
 struct	s_tokenizer
 {
 	int to_free;
@@ -70,6 +81,7 @@ struct	s_tokenizer
 typedef struct s_data
 {
 	char			**env;
+	// t_env			*env;
 	char			*pwd;
 	t_list			*lst;
 	t_tokenizer		*tokenizer;
@@ -85,6 +97,8 @@ typedef struct s_pipe
 	char	*cmd_name;
 }				t_pipe;
 
+
+char	*ft_remove_quotes(char *s);
 void		ft_export(char **args, t_data *data);
 void		export_alone(t_data *data);
 char		**export_env(char **old_env, char *export);

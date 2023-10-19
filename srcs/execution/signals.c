@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:40:52 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 20:41:37 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:34:18 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		printf("\n");
+		printf("\n");//reminder to change 
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 		g_status = 1;
 	}

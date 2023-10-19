@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 22:21:41 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/16 23:26:11 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/16 22:21:41 by mrital-           #+#    #+#             */
+/*   Updated: 2023/10/19 18:30:03 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_new_string(int len, char *content, char **env)
 	token->len = 0;
 	while (content[token->i])
 	{
-		if (content[token->i] == '\'' && ++token->i)
+		if (content[0] == '\'' && ++token->i)
 			ft_go(token, content);
 		else if (content[token->i] == '$' && ++token->i)
 			ft_help_get_str(content, token, env);
@@ -94,16 +94,21 @@ int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env)
 		string = ft_itoa(g_status);
 		s->var = ft_strdup(string);
 		s->to_free = 1;
-		free(string);
+		// free(string);
 	}
 	if (!s->var)
 	{
 		s->check = 1;
-		free(s->identify);
+		// free(s->identify);
 		return (1);
 	}
 	s->i = s->i + ft_strlen(s->identify);
+	// printf("str: %s\n", s->dup);
+	char *tem = s->dup;
+	s->dup = malloc(ft_strlen(s->var) + ft_strlen(tem) + 1);
+	ft_memcpy(s->dup, tem, ft_strlen(tem));	
 	ft_memcpy(&s->dup[s->len], s->var, ft_strlen(s->var));
+	// printf("str: %s\n", s->dup);
 	s->len = s->len + ft_strlen(s->var);
 	free(s->identify);
 	if (s->to_free == 1)

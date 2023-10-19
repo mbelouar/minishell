@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:29 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 00:55:44 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:12:42 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_remove_quotes(char *s)
 	i = 0;
 	j = 0;
 	fill_new_str(s, res, &i, &j);
+	res[j] = '\0';
 	return (res);
 }
 

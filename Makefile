@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/16 22:38:43 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/19 18:27:57 by mrital-          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ SRC =	main.c \
 		srcs/expand/expand_utils2.c \
 
 
-RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
-RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
+# RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
+# RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
 
 LIBFT	= libft/libft.a
 NAME = minishell
@@ -51,14 +51,13 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
-INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
+INCLUDE	= -L libft -lft  -lreadline #-I ../minishell.h
 
 all: $(NAME) clean
 
 $(NAME): $(OBJS)
 	@make -C libft
-	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) $(RLFLGS)
-
+	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE)
 %.o: %.c
 	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
 
