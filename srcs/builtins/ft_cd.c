@@ -6,11 +6,32 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:26 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/09 18:13:07 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:45:53 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*ft_getenv(char **env, char *to_get)
+{
+	int		i;
+	char	*value;
+	char	*name;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], to_get, 4) == 0)
+		{
+			name = ft_strtok(env[i], "=");
+			value = ft_strtok(NULL, "=");
+			if (name != NULL && value != NULL && ft_strcmp(name, to_get) == 0)
+				return (value);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 int	cd_minus(t_data *data)
 {
@@ -27,7 +48,7 @@ int	cd_alone(t_data *data)
 {
 	char	*home_env;
 
-	home_env = getenv("HOME");
+	home_env = ft_getenv(data->env, "HOME");
 	if (home_env == NULL || chdir(home_env) == -1)
 		return (0);
 	change_pwd(data, NULL);
@@ -44,9 +65,7 @@ int	cd_path(char **args, t_data *data)
 
 void	ft_cd(char **args, t_data *data)
 {
-	if (args[1] && args[2])
-		return (error_sentence("cd: too many arguments\n"));
-	else if (!args[1])
+	if (!args[1])
 	{
 		if (!cd_alone(data))
 			return (error_sentence("cd: HOME: is undefined\n"));

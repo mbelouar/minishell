@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/15 20:40:52 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 21:59:18 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/19 20:09:16 by mbelouar          #+#    #+#             */
+/*   Updated: 2023/10/19 20:09:19 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "libft.h"
 
-void	signal_handler(int signum)
+char	*ft_strtok(char *str, const char *delim)
 {
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_status = 1;
-	}
-}
+	static char	*last;
+	char		*token;
 
-void	signal_heredoc(int signum)
-{
-	if (signum == SIGINT)
+	if (str == NULL)
+		str = last;
+	while (*str != '\0' && ft_strchr(delim, *str) != NULL)
+		str++;
+	if (*str == '\0')
 	{
-		g_status = 1;
-		exit(1);
+		last = NULL;
+		return (NULL);
 	}
+	token = str;
+	while (*str != '\0' && ft_strchr(delim, *str) == NULL)
+		str++;
+	if (*str != '\0')
+	{
+		*str = '\0';
+		str++;
+	}
+	last = str;
+	return (token);
 }

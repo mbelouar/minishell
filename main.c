@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 16:16:00 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/19 22:10:41 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ void	create_lst(t_data *data, char **arr)
 	free(arr);
 	arr = NULL;
 }
-
-// void print_lst(t_list *head)
-// {
-// 	t_list *current = head;
-
-// 	while (current != NULL)
-// 	{
-// 		printf("==> %s\n", current->content);
-// 		current = current->next;
-// 	}
-// }
 
 int	ft_token_size(t_tokenizer *lst)
 {
@@ -113,7 +102,7 @@ int		main(int ac, char **av, char **env)
 				continue ;
 			}
 			ft_lstclear(&lst);
-			tokenizer(&data); 
+			tokenizer(&data);
 			execute(&data);
 			free(line);
 			free_token_list(&data.tokenizer);

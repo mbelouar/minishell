@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 16:04:35 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/19 20:05:50 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_pipe
 }				t_pipe;
 
 
-char	*ft_remove_quotes(char *s);
+char		*ft_remove_quotes(char *s);
 void		ft_export(char **args, t_data *data);
 void		export_alone(t_data *data);
 char		**export_env(char **old_env, char *export);
@@ -123,6 +123,7 @@ void		ft_env(char **env);
 int			envlen(char **env);
 
 void		ft_cd(char **args, t_data *data);
+char		*ft_getenv(char **env, char *to_get);
 int			cd_path(char **args, t_data *data);
 int			cd_alone(t_data *data);
 int			cd_minus(t_data *data);

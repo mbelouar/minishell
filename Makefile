@@ -3,18 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+         #
+#    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/19 18:27:57 by mrital-          ###   ########.fr        #
+#    Updated: 2023/10/19 22:07:30 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
- # Colors
-RED = \033[0;31m
-GREEN = \033[0;32m
-RESET = \033[0m
-YELLOW = \033[0;33m
 
 SRC =	main.c \
 	 	srcs/builtins/ft_cd.c \
@@ -42,8 +36,8 @@ SRC =	main.c \
 		srcs/expand/expand_utils2.c \
 
 
-# RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
-# RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
+RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
+RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
 
 LIBFT	= libft/libft.a
 NAME = minishell
@@ -51,15 +45,17 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
-INCLUDE	= -L libft -lft  -lreadline #-I ../minishell.h
+INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
 
-all: $(NAME) clean
+%.o: %.c
+	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft
-	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE)
-%.o: %.c
-	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
+	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) $(RLFLGS)
+
 
 clean:
 	@$(RM) $(OBJS)

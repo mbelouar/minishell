@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:58:54 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/12 00:32:29 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:07:05 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_split(char const *s, char c);
 char	*ft_strsep(char **stringp, const char *delim);
+char	*ft_strtok(char *str, const char *delim);
 t_list	*ft_lstnew(char *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_split_lst(char const *s, char c);

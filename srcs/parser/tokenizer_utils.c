@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 16:16:09 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/19 21:57:41 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,41 +43,58 @@ void	free_double_pointer(char **arr)
 	arr = NULL;
 }
 
-// void	printEnumName(enum e_type value)
-// {
-// 	const char *e_type_names[] = {
-// 		"CMD",
-// 		"BUILTIN",
-// 		"PIPE",
-// 		"RED_OUT_TRUNC",
-// 		"RED_OUT_APPEND",
-// 		"RED_IN",
-// 		"HEREDOC"
-// 	};
-// 	if (value == CMD)
-// 		printf("Type: %s\n", e_type_names[0]);
-// 	if (value == BUILTIN)
-// 		printf("Type: %s\n", e_type_names[1]);
-// 	if (value == PIPE)
-// 		printf("Type: %s\n", e_type_names[2]);
-// 	if (value == RED_OUT_TRUNC)
-// 		printf("Type: %s\n", e_type_names[3]);
-// 	if (value == RED_OUT_APPEND)
-// 		printf("Type: %s\n", e_type_names[4]);
-// 	if (value == RED_IN)
-// 		printf("Type: %s\n", e_type_names[5]);
-// 	if (value == HEREDOC)
-// 		printf("Type: %s\n", e_type_names[6]);
-// }
+void	fill_new_str(char *s, char *res, int *i, int *j)
+{
+	int		inside_quotes;
+	char	quote;
 
+	inside_quotes = 0;
+	quote = '\0';
+	while (s[*i])
+	{
+		if (inside_quotes)
+		{
+			if (s[*i] == quote)
+			{
+				inside_quotes = 0;
+				quote = '\0';
+			}
+			else
+				res[(*j)++] = s[*i];
+		}
+		else
+		{
+			if (s[*i] == '"' || s[*i] == '\'')
+			{
+				inside_quotes = 1;
+				quote = s[*i];
+			}
+			else
+				res[(*j)++] = s[*i];
+		}
+		(*i)++;
+	}
+}
 
-// void printList(t_tokenizer *head)
-// {
-// 	t_tokenizer *current = head;
-// 	while (current != NULL)
-// 	{
-// 		printf("Content: %s\t", current->content);
-// 		printEnumName(current->type);
-// 		current = current->next;
-// 	}
-// }
+char	*ft_remove_quotes(char *s)
+{
+	char	*res;
+	int		len;
+	int		i;
+	int		j;
+
+	i = 0;
+	len = 0;
+	while (s[i])
+	{
+		if (s[i] != '"' && s[i] != '\'')
+			len++;
+		i++;
+	}
+	res = (char *)malloc((len + 1) * sizeof(char));
+	i = 0;
+	j = 0;
+	fill_new_str(s, res, &i, &j);
+	res[j] = '\0';
+	return res;
+}
