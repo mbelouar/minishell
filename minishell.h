@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 20:05:50 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:09:28 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,6 @@ typedef struct s_env
 
 struct	s_tokenizer
 {
-	int to_free;
-	int i;
-	int check;
-	char *dup;
-	int len;
-	char *var;
-	char *id;
-	char *identify;
 	char		*content;
 	t_type		type;
 	t_tokenizer	*next;
@@ -145,6 +137,7 @@ void		free_token_list(t_tokenizer **head);
 int			builtin_check(char *cmd);
 void		free_double_pointer(char **arr);
 
+int	builtin_check(char *cmd);
 void		execute(t_data *data);
 void		execute_compound_command(t_data *data);
 void		exec_in_child(t_pipe p, t_data *data);
@@ -179,15 +172,15 @@ void		signal_heredoc(int signum);
 
 
 void expand(t_data *data);
-void ft_get_len(t_tokenizer *token, char *data, char **env);
+void ft_get_len(t_list *token, char *data, char **env);
 int get_str_len(char* data, char **env);
 char *get_expand(char *content,char **env);
-void ft_mini_expen(t_tokenizer *token, char **env);
+void ft_mini_expen(t_list *token, char **env);
 char *get_new_string(int len, char *content, char **env);
-void ft_help_get_str(char *content, t_tokenizer *token, char **env);
-void ft_go(t_tokenizer *token, char *content);
-char	*ft_free_new_str(t_tokenizer *s);
-int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env);
+void ft_help_get_str(char *content, t_list *token, char **env);
+void ft_go(t_list *token, char *content);
+char	*ft_free_new_str(t_list *s);
+int	ft_hundling(t_list *s, char *data, char *string, char **env);
 char *get_var(char *id, char **env);
 char	*get_index(char *string);
 int	ft_valid(char c);

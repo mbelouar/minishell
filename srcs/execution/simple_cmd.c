@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 21:41:16 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:51:15 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ void	execute_external_cmd(t_data *data, int save_fd[2])
 void	execute_simple_cmd(t_data *data)
 {
 	int	save_fd[2];
-
-	execute_builtin_cmd(data, save_fd);
-	execute_external_cmd(data, save_fd);
+	
+	// printf("command %s\n", data->lst->content);
+	if (builtin_check(data->lst->content))
+		execute_builtin_cmd(data, save_fd);
+	else
+		execute_external_cmd(data, save_fd);
 }
 
 // void	execute_simple_cmd(t_data *data)

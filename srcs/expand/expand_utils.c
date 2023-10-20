@@ -6,7 +6,7 @@
 /*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:41 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 18:30:03 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/20 12:08:10 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*get_new_string(int len, char *content, char **env)
 {
-	t_tokenizer	*token;
+	t_list	*token;
 	char		*str;
 
-	token = (t_tokenizer *)malloc(sizeof(t_tokenizer));
+	token = (t_list *)malloc(sizeof(t_list));
 	token->dup = calloc(len + 1, sizeof(char));
 	token->i = 0;
 	token->check = 0;
@@ -40,7 +40,7 @@ char	*get_new_string(int len, char *content, char **env)
 	return (str);
 }
 
-void	ft_help_get_str(char *content, t_tokenizer *token, char **env)
+void	ft_help_get_str(char *content, t_list *token, char **env)
 {
 	char	*str;
 
@@ -55,9 +55,11 @@ void	ft_help_get_str(char *content, t_tokenizer *token, char **env)
 		if (ft_hundling(token, content, str, env) == 1)
 			return ;
 	}
+	if (str)
+		free(str);
 }
 
-void	ft_go(t_tokenizer *token, char *content)
+void	ft_go(t_list *token, char *content)
 {
 	token->dup[token->len] = '\'';
 	token->len++;
@@ -70,13 +72,14 @@ void	ft_go(t_tokenizer *token, char *content)
 	token->dup[token->len] = '\'';
 }
 
-char	*ft_free_new_str(t_tokenizer *s)
+char	*ft_free_new_str(t_list *s)
 {
 	char	*string;
 
 	if (s->check)
 	{
 		free(s->dup);
+		free(s->identify);
 		s->dup = ft_strdup("");
 	}
 	string = ft_strdup(s->dup);
@@ -85,7 +88,7 @@ char	*ft_free_new_str(t_tokenizer *s)
 	return (string);
 }
 
-int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env)
+int	ft_hundling(t_list *s, char *data, char *string, char **env)
 {
 	s->identify = get_index(&data[s->i]);
 	s->var = get_var(s->identify, env);
@@ -103,12 +106,10 @@ int	ft_hundling(t_tokenizer *s, char *data, char *string, char **env)
 		return (1);
 	}
 	s->i = s->i + ft_strlen(s->identify);
-	// printf("str: %s\n", s->dup);
 	char *tem = s->dup;
 	s->dup = malloc(ft_strlen(s->var) + ft_strlen(tem) + 1);
 	ft_memcpy(s->dup, tem, ft_strlen(tem));	
 	ft_memcpy(&s->dup[s->len], s->var, ft_strlen(s->var));
-	// printf("str: %s\n", s->dup);
 	s->len = s->len + ft_strlen(s->var);
 	free(s->identify);
 	if (s->to_free == 1)

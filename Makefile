@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/19 22:07:30 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/20 16:41:52 by mrital-          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ SRC =	main.c \
 		srcs/expand/expand_utils2.c \
 
 
-RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
-RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
+RLFLGS        = -L/goinfre/mrital-/homebrew/opt/readline/lib -lreadline
+RLOFLGS        = -I/goinfre/mrital-/homebrew/opt/readline/include
 
 LIBFT	= libft/libft.a
 NAME = minishell
@@ -45,10 +45,10 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
-INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
+INCLUDE	= -L libft -lft -L/goinfre/mrital-/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
 
 %.o: %.c
-	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
+	@$(CC)  -I/goinfre/mrital-/homebrew/opt/readline/include -c $< -o $@
 
 all: $(NAME)
 

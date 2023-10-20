@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 20:00:15 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:53:38 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	tokenizer(t_data *data)
 	char		*content;
 	char		*str;
 	char		**tmp;
+	char		*test;
 
 	curr = data->lst;
 	while (curr)
@@ -133,8 +134,10 @@ void	tokenizer(t_data *data)
 			else
 				type = CMD;
 			free_double_pointer(tmp);
-			ft_create_node(&data->tokenizer, get_expand(content,data->env), type);
+			test = get_expand(content,data->env);
+			ft_create_node(&data->tokenizer, test, type);
 			free(content);
+			free(test);
 			content = NULL;
 		}
 		if (curr == NULL)

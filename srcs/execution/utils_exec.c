@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:47:48 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 21:47:24 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:52:57 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int	check_pipe(t_tokenizer *lst)
 void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 {
 	t_tokenizer	*curr;
-
 	curr = data->tokenizer;
+	// if(!curr)
+	// 	return;
 	while (curr)
 	{
 		if (curr->type == CMD)

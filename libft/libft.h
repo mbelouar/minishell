@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:58:54 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 20:07:05 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:07:26 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 
 typedef struct s_list
 {
+	int to_free;
+	int i;
+	int check;
+	char *dup;
+	int len;
+	char *var;
+	char *id;
+	char *identify;
 	char			*content;
 	struct s_list	*next;
 }	t_list;

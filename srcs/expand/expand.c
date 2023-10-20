@@ -6,50 +6,43 @@
 /*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:44 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 16:15:50 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/20 15:53:42 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// void	ft_mini_expen(t_tokenizer *token, char **env)
-// {
-// 	t_tokenizer	*cmd;
-
-// 	cmd = token;
-// 	while (cmd)
-// 	{
-// 		cmd->content = get_expand(cmd->content, env);
-// 		cmd = cmd->next;
-// 	}
-// }
 
 char	*get_expand(char *content, char **env)
 {
 	int		len;
 	char	*str;
+	char	*temp;
 
 	len = get_str_len(content, env);
 	str = get_new_string(len, content, env);
+	temp = ft_remove_quotes(str);
+	//  printf("=========%p=========\n",temp);
+	free(str);
 	// free(content);
-	return (ft_remove_quotes(str));
+	return (temp);
 }
 
-int	get_str_len(char *data, char **env)
+int	get_str_len(char *token, char **env)
 {
-	t_tokenizer	s;
+	t_list	s;
 
 	s.i = 0;
 	s.len = 0;
-	while (data[s.i])
+	while (token[s.i])
 	{
-		if (data[s.i] && data[s.i] != '\'')
+		if (token[s.i] && token[s.i] != '\'')
 		{
 			s.len++;
 			s.i++;
 		}
-		else if (data[s.i] == '$' && ++s.i)
-			ft_get_len(&s, data, env);
+		else if (token[s.i] == '$' && ++s.i)
+			ft_get_len(&s, token, env);
 		else
 		{
 			s.len++;
@@ -59,7 +52,7 @@ int	get_str_len(char *data, char **env)
 	return (s.len);
 }
 
-void	ft_get_len(t_tokenizer *token, char *data, char **env)
+void	ft_get_len(t_list *token, char *data, char **env)
 {
 	if (ft_valid(data[token->i]) == 0)
 		token->len++;
@@ -78,16 +71,3 @@ void	ft_get_len(t_tokenizer *token, char *data, char **env)
 	}
 }
 
-// void	expand(t_data *data)
-// {
-// 	t_tokenizer	*cmd;
-
-// 	if (!data)
-// 		return ;
-// 	cmd = data->tokenizer;
-// 	while (cmd)
-// 	{
-// 		ft_mini_expen(cmd, data->env);
-// 		cmd = cmd->next;
-// 	}
-// }

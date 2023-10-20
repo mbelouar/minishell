@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 22:10:41 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:34:43 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int		main(int ac, char **av, char **env)
 				end_of_file(&data);
 			else
 				add_history(line);
+			if (ft_strlen(line) > 0)
+			{
 			tmp = ft_split(line, ' ');
 			create_lst(&data, tmp);
 			err = check_quotes(line);
@@ -106,7 +108,8 @@ int		main(int ac, char **av, char **env)
 			execute(&data);
 			free(line);
 			free_token_list(&data.tokenizer);
-			ft_lstclear(&data.lst);
+			ft_lstclear(&data.lst);		
+			}
 			// system("leaks -q minishell");
 		}
 	}

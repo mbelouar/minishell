@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/19 21:57:41 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:38:04 by mrital-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	fill_new_str(char *s, char *res, int *i, int *j)
 		}
 		else
 		{
-			if (s[*i] == '"' || s[*i] == '\'')
+			if (s[*i] == '\"' || s[*i] == '\'')
 			{
 				inside_quotes = 1;
 				quote = s[*i];
@@ -87,7 +87,7 @@ char	*ft_remove_quotes(char *s)
 	len = 0;
 	while (s[i])
 	{
-		if (s[i] != '"' && s[i] != '\'')
+		if (s[i] != '\"' && s[i] != '\'')
 			len++;
 		i++;
 	}
