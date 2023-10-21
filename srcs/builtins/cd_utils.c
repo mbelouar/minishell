@@ -57,7 +57,7 @@ int	change_pwd(t_data *data, char *input)
 	curr_wd = getcwd(NULL, 0);
 	if (!curr_wd && input && ft_strcmp(".", input) == 0)
 	{
-		ft_putstr_fd("Error retrieving current directory\n", 2);
+		error_sentence(data, "Error retrieving current directory\n", 2);
 		pwd = data->pwd;
 		data->pwd = ft_strjoin2(pwd, "/.");
 		free(pwd);

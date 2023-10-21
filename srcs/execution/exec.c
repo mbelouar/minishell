@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/20 00:25:23 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 19:58:24 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ char	*get_absolute_path(char *command_name, t_data *data)
 	dir = opendir(command_name);
 	if (dir != NULL)
 	{
-		error_sentence("minishell: ");
+		error_sentence(data, "minishell: ", 126);
 		ft_putstr_fd(command_name, 2);
-		error_sentence(": is a directory\n");
+		error_sentence(data, ": is a directory\n", 126);
 		closedir(dir);
-		exit(EXIT_FAILURE);
+		exit(126);
 	}
 	if (access(command_name, F_OK | X_OK) == 0)
 		return (command_name);
@@ -40,7 +40,7 @@ char	*get_absolute_path(char *command_name, t_data *data)
 		i++;
 	}
 	if (path_env == NULL) {
-		error_sentence("PATH environment variable is not set\n");
+		error_sentence(data, "PATH environment variable is not set\n", 127);
 		return (NULL);
 	}
 	char *path_copy = ft_strdup(path_env);

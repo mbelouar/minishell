@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:37:36 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/20 10:59:32 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:35:51 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
-	if(!s1 || !s2)
+	if (!s1 || !s2)
 		return (0);
 	while (s1[i] || s2[i])
 	{

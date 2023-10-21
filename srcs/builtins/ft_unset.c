@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:43 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/09/21 05:54:51 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:57:13 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	ft_unset(char **args, t_data *data)
 			i++;
 		}
 		else
-			return (error_sentence("unset: invalid identifier\n"));
+			return (error_sentence(data, "unset: invalid identifier\n", 1));
 	}
 }

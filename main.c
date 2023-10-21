@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/20 16:34:43 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 19:51:15 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	end_of_file(t_data *data)
 
 void	data_init(t_data *data, char **env)
 {
+	data->exit_status = 0;
 	data->env = dup_env(env);
 	data->pwd = getcwd(NULL, 0);
 }
@@ -56,13 +57,13 @@ int	ft_token_size(t_tokenizer *lst)
 	return (size);
 }
 
-int		main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 	t_list	*lst;
 	char	*line;
 	char	**tmp;
-	int err;
+	int		err;
 
 	tmp = NULL;
 	data_init(&data, env);
@@ -74,43 +75,32 @@ int		main(int ac, char **av, char **env)
 	{
 		while (1)
 		{
-			line = readline("friw-kriw@ ");
-			if (!line)
-				end_of_file(&data);
-			else
-				add_history(line);
+			line = ft_readline(&data);
 			if (ft_strlen(line) > 0)
 			{
-			tmp = ft_split(line, ' ');
-			create_lst(&data, tmp);
-			err = check_quotes(line);
-			if (err == 1)
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-				free_token_list(&data.tokenizer);
-				ft_lstclear(&data.lst);
-				free(line);
-				continue ;
-			}
-			lst = ft_split_lst(line,'\0');
-			err = analylizer(lst);
-			if (err == 1)
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-				free_token_list(&data.tokenizer);
-				ft_lstclear(&data.lst);
+				tmp = ft_split(line, ' ');
+				create_lst(&data, tmp);
+				err = check_quotes(line);
+				if (err == 1)
+				{
+					ft_quotes_err(&data, line);
+					continue ;
+				}
+				lst = ft_split_lst(line, '\0');
+				err = analylizer(lst);
+				if (err == 1)
+				{
+					ft_syntax_err(&data, line, lst);
+					continue ;
+				}
 				ft_lstclear(&lst);
+				tokenizer(&data);
+				execute(&data);
 				free(line);
-				continue ;
+				free_token_list(&data.tokenizer);
+				ft_lstclear(&data.lst);
 			}
-			ft_lstclear(&lst);
-			tokenizer(&data);
-			execute(&data);
-			free(line);
-			free_token_list(&data.tokenizer);
-			ft_lstclear(&data.lst);		
-			}
-			// system("leaks -q minishell");
+			system("leaks -q minishell");
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:43:56 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/19 20:43:44 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/21 21:34:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	exec_in_child(t_pipe p, t_data *data)
 	}
 	else
 	{
-		error_sentence("minishell: command not found\n");
-		exit(EXIT_FAILURE);
+		error_sentence(data, "minishell: command not found\n", 127);
+		exit(127);
 	}
 }
 
@@ -36,7 +36,7 @@ void	child_exec(t_data *data, t_pipe p, int i, t_tokenizer *curr)
 	if (i > 0)
 		dup2(p.prev_in, STDIN_FILENO);
 	close(p.pipe_fd[0]);
-	setup_redirections(curr);
+	setup_redirections(data, curr);
 	if (builtin_check(p.cmd[0]))
 	{
 		exec_builtin(p.cmd, data);

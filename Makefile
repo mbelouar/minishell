@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+         #
+#    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/20 16:41:52 by mrital-          ###   ########.fr        #
+#    Updated: 2023/10/21 18:24:15 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	main.c \
 		srcs/builtins/export_utils.c \
 		srcs/parser/tokenizer.c \
 		srcs/parser/tokenizer_utils.c \
+		srcs/parser/main_utils.c \
 		srcs/execution/exec.c \
 		srcs/execution/redir.c \
 		srcs/execution/utils_exec.c \
@@ -36,8 +37,8 @@ SRC =	main.c \
 		srcs/expand/expand_utils2.c \
 
 
-RLFLGS        = -L/goinfre/mrital-/homebrew/opt/readline/lib -lreadline
-RLOFLGS        = -I/goinfre/mrital-/homebrew/opt/readline/include
+RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
+RLOFLGS        = -I/goinfre/mbelouar/homebrew/opt/readline/include
 
 LIBFT	= libft/libft.a
 NAME = minishell
@@ -45,10 +46,10 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 RM = rm -f
 OBJS := $(SRC:.c=.o)
-INCLUDE	= -L libft -lft -L/goinfre/mrital-/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
+INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
 
 %.o: %.c
-	@$(CC)  -I/goinfre/mrital-/homebrew/opt/readline/include -c $< -o $@
+	@$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
 
 all: $(NAME)
 

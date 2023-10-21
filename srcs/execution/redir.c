@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/15 20:41:17 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/21 21:37:23 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_red_out_append(t_tokenizer *head)
 	dup2(fd, STDOUT_FILENO);
 }
 
-void	ft_red_in(t_tokenizer *head)
+void	ft_red_in(t_data *data, t_tokenizer *head)
 {
 	t_tokenizer	*curr;
 	int			fd;
@@ -45,19 +45,18 @@ void	ft_red_in(t_tokenizer *head)
 	}
 	else
 	{
-		error_sentence("minishell: ");
+		error_sentence(data, "minishell: ", 1);
 		ft_putstr_fd(curr->content, 2);
-		error_sentence(": No such file or directory\n");
-		exit(EXIT_FAILURE);
+		error_sentence(data, ": No such file or directory\n", 1);
 	}
 }
 
-void	ft_heredoc(char		*delimiter)
+void	ft_heredoc(t_data *data, char	*delimiter)
 {
 	// check if delimiter has quotes -> true dont expand else expand
 	int			fd[2];
 	char		*line;
-	// char		*expanded;
+	char		*expanded;
 	int			has_quotes;
 
 	pipe(fd);
@@ -67,7 +66,7 @@ void	ft_heredoc(char		*delimiter)
 		line = readline("heredoc> ");
 		if (!ft_strcmp(line, delimiter))
 			break ;
-		// expanded = ft_expander(line);
+		expanded = get_expand(data, line, data->env);
 		// if (expanded && !has_quotes)
 		// 	write(pipe_fd[1], expanded, ft_strlen(expanded));
 		// else
@@ -81,7 +80,7 @@ void	ft_heredoc(char		*delimiter)
 	close(fd[1]);
 }
 
-void	setup_redirections(t_tokenizer *head)
+void	setup_redirections(t_data *data, t_tokenizer *head)
 {
 	t_tokenizer	*curr;
 
@@ -93,9 +92,9 @@ void	setup_redirections(t_tokenizer *head)
 		else if (curr->type == RED_OUT_APPEND)
 			ft_red_out_append(curr);
 		else if (curr->type == RED_IN)
-			ft_red_in(curr);
+			ft_red_in(data, curr);
 		else if (curr->type == HEREDOC)
-			ft_heredoc(curr->content);
+			ft_heredoc(data, curr->content);
 		curr = curr->next;
 	}
 }

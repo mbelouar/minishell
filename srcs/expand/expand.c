@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:44 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/20 15:53:42 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 22:18:17 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
-char	*get_expand(char *content, char **env)
+char	*get_expand(t_data *data, char *content, char **env)
 {
 	int		len;
 	char	*str;
 	char	*temp;
 
 	len = get_str_len(content, env);
-	str = get_new_string(len, content, env);
+	str = get_new_string(data, len, content, env);
 	temp = ft_remove_quotes(str);
-	//  printf("=========%p=========\n",temp);
 	free(str);
-	// free(content);
 	return (temp);
 }
 
@@ -70,4 +67,3 @@ void	ft_get_len(t_list *token, char *data, char **env)
 		free(token->id);
 	}
 }
-

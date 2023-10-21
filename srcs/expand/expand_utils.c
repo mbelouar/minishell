@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:41 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/20 12:08:10 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 22:21:19 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*get_new_string(int len, char *content, char **env)
+char	*get_new_string(t_data *data, int len, char *content, char **env)
 {
 	t_list	*token;
-	char		*str;
+	char	*str;
 
 	token = (t_list *)malloc(sizeof(t_list));
-	token->dup = calloc(len + 1, sizeof(char));
+	token->dup = ft_calloc(len + 1, sizeof(char));
 	token->i = 0;
 	token->check = 0;
 	token->len = 0;
@@ -26,8 +26,9 @@ char	*get_new_string(int len, char *content, char **env)
 	{
 		if (content[0] == '\'' && ++token->i)
 			ft_go(token, content);
-		else if (content[token->i] == '$' && ++token->i)
-			ft_help_get_str(content, token, env);
+		else if (content[token->i] == '$' && ++token->i) {
+			ft_help_get_str(data, content, token, env);
+		}
 		else
 		{
 			token->dup[token->len] = content[token->i];
@@ -40,7 +41,7 @@ char	*get_new_string(int len, char *content, char **env)
 	return (str);
 }
 
-void	ft_help_get_str(char *content, t_list *token, char **env)
+void	ft_help_get_str(t_data *data, char *content, t_list *token, char **env)
 {
 	char	*str;
 
@@ -52,7 +53,7 @@ void	ft_help_get_str(char *content, t_list *token, char **env)
 	}
 	else
 	{
-		if (ft_hundling(token, content, str, env) == 1)
+		if (ft_hundling(data, token, content, str, env) == 1)
 			return ;
 	}
 	if (str)
@@ -88,31 +89,37 @@ char	*ft_free_new_str(t_list *s)
 	return (string);
 }
 
-int	ft_hundling(t_list *s, char *data, char *string, char **env)
+int	ft_hundling(t_data *d, t_list *s, char *data, char *string, char **env)
 {
+	char	*tem;
+
 	s->identify = get_index(&data[s->i]);
 	s->var = get_var(s->identify, env);
 	if (s->identify[0] == '?' && s->identify[1] == '\0')
 	{
-		string = ft_itoa(g_status);
+		if (g_status)
+			string = ft_itoa(g_status);
+		else
+			string = ft_itoa(d->exit_status);
 		s->var = ft_strdup(string);
 		s->to_free = 1;
-		// free(string);
+		free(string);
 	}
 	if (!s->var)
 	{
-		s->check = 1;
-		// free(s->identify);
+		free(s->identify);
+		s->identify = NULL;
 		return (1);
 	}
 	s->i = s->i + ft_strlen(s->identify);
-	char *tem = s->dup;
+	tem = s->dup;
 	s->dup = malloc(ft_strlen(s->var) + ft_strlen(tem) + 1);
-	ft_memcpy(s->dup, tem, ft_strlen(tem));	
+	ft_memcpy(s->dup, tem, ft_strlen(tem));
 	ft_memcpy(&s->dup[s->len], s->var, ft_strlen(s->var));
 	s->len = s->len + ft_strlen(s->var);
 	free(s->identify);
 	if (s->to_free == 1)
 		free(s->var);
+	free(tem);
 	return (0);
 }

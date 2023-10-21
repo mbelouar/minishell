@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/20 12:09:28 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 21:34:01 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 typedef struct s_tokenizer	t_tokenizer;
 typedef enum e_type			t_type;
 
+int							g_status;
+
 enum	e_type
 {
 	CMD,
@@ -50,19 +52,6 @@ enum	e_type
 	HEREDOC
 };
 
-int	g_status;
-
-/*
-typedef struct s_env
-{
-	char *value;
-	char *id;
-	struct s_env *next;
-	struct s_env *prev;
-}t_env;
-
-*/
-
 struct	s_tokenizer
 {
 	char		*content;
@@ -72,8 +61,8 @@ struct	s_tokenizer
 
 typedef struct s_data
 {
+	int				exit_status;
 	char			**env;
-	// t_env			*env;
 	char			*pwd;
 	t_list			*lst;
 	t_tokenizer		*tokenizer;
@@ -88,7 +77,6 @@ typedef struct s_pipe
 	char	**cmd;
 	char	*cmd_name;
 }				t_pipe;
-
 
 char		*ft_remove_quotes(char *s);
 void		ft_export(char **args, t_data *data);
@@ -109,7 +97,7 @@ void		ft_echo(char **args);
 
 void		ft_pwd(t_data *data);
 
-void		ft_exit(char **args);
+void		ft_exit(char **args, t_data *data);
 
 void		ft_env(char **env);
 int			envlen(char **env);
@@ -122,7 +110,6 @@ int			cd_minus(t_data *data);
 int			change_pwd(t_data *data, char *input);
 void		change_env_oldpwd(t_data *data);
 void		change_env_pwd(t_data *data);
-
 
 int			analylizer(t_list *list);
 int			check_quotes(char *line);
@@ -137,14 +124,14 @@ void		free_token_list(t_tokenizer **head);
 int			builtin_check(char *cmd);
 void		free_double_pointer(char **arr);
 
-int	builtin_check(char *cmd);
+int			builtin_check(char *cmd);
 void		execute(t_data *data);
 void		execute_compound_command(t_data *data);
 void		exec_in_child(t_pipe p, t_data *data);
 void		execute_simple_cmd(t_data *data);
 void		execute_external_cmd(t_data *data, int save_fd[2]);
 void		execute_builtin_cmd(t_data *data, int save_fd[2]);
-void		setup_redirections(t_tokenizer *head);
+void		setup_redirections(t_data *data, t_tokenizer *head);
 char		*get_absolute_path( char *command_name, t_data *da);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
@@ -159,31 +146,36 @@ void		parent_exec(t_pipe p, int i);
 
 void		ft_red_out_trunc(t_tokenizer *head);
 void		ft_red_out_append(t_tokenizer *head);
-void		ft_red_in(t_tokenizer *head);
+void		ft_red_in(t_data *data, t_tokenizer *head);
 
-void		error_sentence(char *str);
+void		error_sentence(t_data *data, char *str, int status);
 void		ft_cmd_not_found(char *str);
 void		perror_exec(void);
 void		perror_fork(void);
 
-void		ft_heredoc(char *delimiter);
+void		ft_heredoc(t_data *data, char *delimiter);
 void		signal_handler(int signum);
 void		signal_heredoc(int signum);
 
+void		expand(t_data *data);
+void		ft_get_len(t_list *token, char *data, char **env);
+int			get_str_len(char *data, char **env);
+char		*get_expand(t_data *data, char *content, char **env);
+void		ft_mini_expen(t_list *token, char **env);
+char		*get_new_string(t_data *data, int len, char *content, char **env);
+void		ft_help_get_str(t_data *data, char *content, t_list *token, char **env);
+void		ft_go(t_list *token, char *content);
+char		*ft_free_new_str(t_list *s);
+int			ft_hundling(t_data *d, t_list *s, char *data, char *string, char **env);
+char		*get_var(char *id, char **env);
+char		*get_index(char *string);
+int			ft_valid(char c);
 
-void expand(t_data *data);
-void ft_get_len(t_list *token, char *data, char **env);
-int get_str_len(char* data, char **env);
-char *get_expand(char *content,char **env);
-void ft_mini_expen(t_list *token, char **env);
-char *get_new_string(int len, char *content, char **env);
-void ft_help_get_str(char *content, t_list *token, char **env);
-void ft_go(t_list *token, char *content);
-char	*ft_free_new_str(t_list *s);
-int	ft_hundling(t_list *s, char *data, char *string, char **env);
-char *get_var(char *id, char **env);
-char	*get_index(char *string);
-int	ft_valid(char c);
-// char	*ft_remove_quotes(char *s);
+void		process_line(t_data *data, char *line, char **tmp);
+void		free_resources(t_data *data, char *line);
+char		*ft_readline(t_data *data);
+void		ft_syntax_err(t_data *data, char *line, t_list *lst);
+void		ft_quotes_err(t_data *data, char *line);
+void		end_of_file(t_data *data);
 
 #endif

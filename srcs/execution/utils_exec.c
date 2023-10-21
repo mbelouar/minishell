@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:47:48 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/20 15:52:57 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 20:01:40 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 {
 	t_tokenizer	*curr;
 	curr = data->tokenizer;
-	// if(!curr)
-	// 	return;
 	while (curr)
 	{
 		if (curr->type == CMD)
@@ -64,7 +62,7 @@ void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 	}
 	else if (builtin_check(cmd[0]) == 0 || cmd_name == NULL)
 	{
-		error_sentence("minishell: command not found\n");
+		error_sentence(data, "minishell: command not found\n", 127);
 		exit(127);
 	}
 }
@@ -82,7 +80,7 @@ void	exec_builtin(char **cmd, t_data *data)
 	if (ft_strcmp(cmd[0], "pwd") == 0)
 		ft_pwd(data);
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		ft_exit(cmd);
+		ft_exit(cmd, data);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		ft_cd(cmd, data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/20 15:51:15 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/21 21:36:11 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_builtin_cmd(t_data *data, int save_fd[2])
 			cmd = ft_split(tmp->content, ' ');
 			save_fd[0] = dup(0);
 			save_fd[1] = dup(1);
-			setup_redirections(tmp);
+			setup_redirections(data, tmp);
 			exec_builtin(cmd, data);
 			dup2(save_fd[0], 0);
 			dup2(save_fd[1], 1);
@@ -44,6 +44,7 @@ void	execute_external_cmd(t_data *data, int save_fd[2])
 	pid_t		pid;
 	char		**cmd;
 	char		*cmd_name;
+	int			status;
 
 	tmp = data->tokenizer;
 	cmd_name = NULL;
@@ -52,60 +53,22 @@ void	execute_external_cmd(t_data *data, int save_fd[2])
 		perror_fork();
 	else if (pid == 0)
 	{
-		setup_redirections(data->tokenizer);
+		setup_redirections(data, data->tokenizer);
 		exec_cmd(data, cmd, cmd_name);
 	}
 	else
-		waitpid(pid, 0, 0);
+	{
+		waitpid(pid, &status, 0);
+		data->exit_status = WEXITSTATUS(status);
+	}
 }
 
 void	execute_simple_cmd(t_data *data)
 {
 	int	save_fd[2];
-	
-	// printf("command %s\n", data->lst->content);
+
 	if (builtin_check(data->lst->content))
 		execute_builtin_cmd(data, save_fd);
 	else
 		execute_external_cmd(data, save_fd);
 }
-
-// void	execute_simple_cmd(t_data *data)
-// {
-// 	pid_t		pid;
-// 	t_tokenizer	*tmp;
-// 	int			save_fd[2];
-// 	char		**cmd;
-// 	char		*cmd_name;
-
-// 	tmp = data->tokenizer;
-// 	cmd_name = NULL;
-// 	while (tmp)
-// 	{
-// 		if (tmp->type == BUILTIN)
-// 		{
-// 			cmd = ft_split(tmp->content, ' ');
-// 			save_fd[0] = dup(0);
-// 			save_fd[1] = dup(1);
-// 			setup_redirections(tmp);
-// 			exec_builtin(cmd, data);
-// 			dup2(save_fd[0], 0);
-// 			dup2(save_fd[1], 1);
-// 			close(save_fd[0]);
-// 			close(save_fd[1]);
-// 			free_double_pointer(cmd);
-// 			return ;
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	pid = fork();
-// 	if (pid < 0)
-// 		perror_fork();
-// 	else if (pid == 0)
-// 	{
-// 		setup_redirections(data->tokenizer);
-// 		exec_cmd(data, cmd, cmd_name);
-// 	}
-// 	else
-// 		waitpid(pid, 0, 0);
-// }
