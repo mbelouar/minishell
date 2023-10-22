@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 03:22:02 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/21 22:06:21 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:14:10 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	tokenizer(t_data *data)
 			else
 				type = CMD;
 			free_double_pointer(tmp);
-			test = get_expand(data, content,data->env);
+			test = get_expand(data, content, data->env);
 			ft_create_node(&data->tokenizer, test, type);
 			free(content);
 			free(test);

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:37 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 19:56:36 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:10:22 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_export(char **args, t_data *data)
 					exp_and_check(data, args, &i);
 			}
 			else
-				return (error_sentence(data, "export: not a valid identifier\n", 1));
+				return (err_msg(data, "export: not a valid identifier\n", 1));
 			i++;
 		}
 	}

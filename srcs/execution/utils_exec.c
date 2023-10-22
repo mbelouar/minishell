@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:47:48 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 20:01:40 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:11:18 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	check_pipe(t_tokenizer *lst)
 void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 {
 	t_tokenizer	*curr;
+
 	curr = data->tokenizer;
 	while (curr)
 	{
@@ -62,7 +63,7 @@ void	exec_cmd(t_data *data, char **cmd, char *cmd_name)
 	}
 	else if (builtin_check(cmd[0]) == 0 || cmd_name == NULL)
 	{
-		error_sentence(data, "minishell: command not found\n", 127);
+		err_msg(data, "minishell: command not found\n", 127);
 		exit(127);
 	}
 }
@@ -83,4 +84,15 @@ void	exec_builtin(char **cmd, t_data *data)
 		ft_exit(cmd, data);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		ft_cd(cmd, data);
+}
+
+void	free_pipe_struct(t_pipe *p)
+{
+	if (p->cmd_name)
+	{
+		free(p->cmd_name);
+		p->cmd_name = NULL;
+	}
+	if (p->cmd)
+		free_double_pointer(p->cmd);
 }

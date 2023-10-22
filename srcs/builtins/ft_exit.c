@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:34 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 19:55:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:10:22 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	ft_exit(char **args, t_data *data)
 		exit(0);
 	if (!is_number(args[1]))
 	{
-		error_sentence(data, "exit: numeric argument required\n", 255);
+		err_msg(data, "exit: numeric argument required\n", 255);
 		exit(255);
 	}
 	else if (is_number(args[1]) && args[2])
-		return (error_sentence(data, "exit: too many arguments\n", 1));
+		return (err_msg(data, "exit: too many arguments\n", 1));
 	else if (is_number(args[1]))
 		exit(ft_atoi(args[1]));
 }

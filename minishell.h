@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 21:34:01 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:09:38 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ typedef struct s_pipe
 	char	*cmd_name;
 }				t_pipe;
 
+typedef struct s_norm
+{
+	int			i;
+	t_pipe		p;
+	t_tokenizer	*curr;
+	int			*child_pids;
+}				t_norm;
+
 char		*ft_remove_quotes(char *s);
 void		ft_export(char **args, t_data *data);
 void		export_alone(t_data *data);
@@ -127,12 +135,19 @@ void		free_double_pointer(char **arr);
 int			builtin_check(char *cmd);
 void		execute(t_data *data);
 void		execute_compound_command(t_data *data);
+void		ft_ft3(t_norm *n, t_data *data);
+void		ft_ft2(t_norm *n);
+void		ft_ft(t_norm *n, t_data *data);
+void		ft_init(t_data *data, t_norm *n);
 void		exec_in_child(t_pipe p, t_data *data);
 void		execute_simple_cmd(t_data *data);
 void		execute_external_cmd(t_data *data, int save_fd[2]);
 void		execute_builtin_cmd(t_data *data, int save_fd[2]);
 void		setup_redirections(t_data *data, t_tokenizer *head);
 char		*get_absolute_path( char *command_name, t_data *da);
+void		check_dir(char *command_name, t_data *data);
+char		*search_in_path(char *cmd_name, char *path_copy);
+char		*get_path_environment(t_data *data);
 int			check_pipe(t_tokenizer *lst);
 int			count_cmds(t_tokenizer *lst);
 void		exec_builtin(char **cmd, t_data *data);
@@ -143,19 +158,22 @@ void		close_all_pipes(int *p1, int *p2);
 void		exec_cmd(t_data *data, char **cmd, char *cmd_name);
 void		child_exec(t_data *data, t_pipe p, int i, t_tokenizer *curr);
 void		parent_exec(t_pipe p, int i);
+void		free_pipe_struct(t_pipe *p);
 
 void		ft_red_out_trunc(t_tokenizer *head);
 void		ft_red_out_append(t_tokenizer *head);
 void		ft_red_in(t_data *data, t_tokenizer *head);
 
-void		error_sentence(t_data *data, char *str, int status);
+void		err_msg(t_data *data, char *str, int status);
 void		ft_cmd_not_found(char *str);
 void		perror_exec(void);
 void		perror_fork(void);
 
 void		ft_heredoc(t_data *data, char *delimiter);
+void		check_heredoc(char *expanded, char *line, int fd[2], int quotes);
 void		signal_handler(int signum);
 void		signal_heredoc(int signum);
+int			has_quotes(char *delimiter);
 
 void		expand(t_data *data);
 void		ft_get_len(t_list *token, char *data, char **env);

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:44:26 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 19:54:49 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:10:22 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ void	ft_cd(char **args, t_data *data)
 	if (!args[1])
 	{
 		if (!cd_alone(data))
-			return (error_sentence(data, "cd: HOME: is undefined\n", 1));
+			return (err_msg(data, "cd: HOME: is undefined\n", 1));
 	}
 	else if (ft_strcmp(args[1], "-") == 0)
 	{
 		if (!cd_minus(data))
-			return (error_sentence(data, "cd: OLDPWD is undefined\n", 1));
+			return (err_msg(data, "cd: OLDPWD is undefined\n", 1));
 	}
 	else
 	{
 		if (!cd_path(args, data))
-			return (error_sentence(data, "cd: no such file or directory\n", 1));
+			return (err_msg(data, "cd: no such file or directory\n", 1));
 	}
 }

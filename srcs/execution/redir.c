@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 21:37:23 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:19:01 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,31 @@ void	ft_red_in(t_data *data, t_tokenizer *head)
 	}
 	else
 	{
-		error_sentence(data, "minishell: ", 1);
+		err_msg(data, "minishell: ", 1);
 		ft_putstr_fd(curr->content, 2);
-		error_sentence(data, ": No such file or directory\n", 1);
+		err_msg(data, ": No such file or directory\n", 1);
 	}
 }
 
 void	ft_heredoc(t_data *data, char	*delimiter)
 {
-	// check if delimiter has quotes -> true dont expand else expand
 	int			fd[2];
+	int			quotes;
 	char		*line;
 	char		*expanded;
-	int			has_quotes;
 
 	pipe(fd);
 	signal(SIGINT, signal_heredoc);
+	quotes = has_quotes(delimiter);
+	if (quotes == 1)
+		delimiter = ft_remove_quotes(delimiter);
 	while (1)
 	{
 		line = readline("heredoc> ");
 		if (!ft_strcmp(line, delimiter))
 			break ;
 		expanded = get_expand(data, line, data->env);
-		// if (expanded && !has_quotes)
-		// 	write(pipe_fd[1], expanded, ft_strlen(expanded));
-		// else
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], "\n", 1);
+		check_heredoc(expanded, line, fd, quotes);
 		free(line);
 	}
 	if (line)
@@ -98,4 +96,3 @@ void	setup_redirections(t_data *data, t_tokenizer *head)
 		curr = curr->next;
 	}
 }
-

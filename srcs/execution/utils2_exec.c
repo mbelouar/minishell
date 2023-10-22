@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 16:43:56 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 21:34:17 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:10:22 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_in_child(t_pipe p, t_data *data)
 	}
 	else
 	{
-		error_sentence(data, "minishell: command not found\n", 127);
+		err_msg(data, "minishell: command not found\n", 127);
 		exit(127);
 	}
 }
@@ -44,4 +44,30 @@ void	child_exec(t_data *data, t_pipe p, int i, t_tokenizer *curr)
 	}
 	else
 		exec_in_child(p, data);
+}
+
+int	has_quotes(char *delimiter)
+{
+	int	len;
+
+	len = ft_strlen(delimiter);
+	if (len >= 2 && delimiter[0] == '"' && delimiter[len - 1] == '"')
+		return (1);
+	else if (len >= 2 && delimiter[0] == '\'' && delimiter[len - 1] == '\'')
+		return (1);
+	return (0);
+}
+
+void	check_heredoc(char *expanded, char *line, int fd[2], int quotes)
+{
+	if (expanded && quotes == 0)
+	{
+		write(fd[1], expanded, ft_strlen(expanded));
+		write (fd[1], "\n", 1);
+	}
+	else
+	{
+		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n", 1);
+	}
 }

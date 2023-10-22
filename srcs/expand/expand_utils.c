@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:41 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/21 22:21:19 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 20:55:52 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ char	*get_new_string(t_data *data, int len, char *content, char **env)
 	token->len = 0;
 	while (content[token->i])
 	{
-		if (content[0] == '\'' && ++token->i)
+		if (content[token->i] == '\'' && ++token->i)
 			ft_go(token, content);
-		else if (content[token->i] == '$' && ++token->i) {
+		else if (content[token->i] == '$' && ++token->i)
+		{
 			ft_help_get_str(data, content, token, env);
+			break ;
 		}
 		else
 		{

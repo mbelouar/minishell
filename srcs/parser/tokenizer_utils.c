@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrital- <mrital-@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/20 15:38:04 by mrital-          ###   ########.fr       */
+/*   Updated: 2023/10/22 19:14:31 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ char	*ft_remove_quotes(char *s)
 	j = 0;
 	fill_new_str(s, res, &i, &j);
 	res[j] = '\0';
-	return res;
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 22:44:04 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/14 20:21:59 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:07:47 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,10 @@ int	analylizer(t_list *list)
 		if (*curr->content == '|' || *curr->content == '<'
 			|| *curr->content == '>')
 		{
-			if (ft_strlen(curr->content) > 1 && pipe)
-				return (1);
-			if (ft_strlen(curr->content) > 2)
-				return (1);
-			else if (!curr->next)
-				return (1);
-			else if (ft_strchr("<|>", *(curr->next->content)) && !pipe)
-				return (1);
-			else if (ft_strchr("|", *(curr->next->content)) && pipe)
+			if ((ft_strlen(curr->content) > 1 && pipe)
+				|| (ft_strlen(curr->content) > 2) || (!curr->next)
+				|| (ft_strchr("<|>", *(curr->next->content)) && !pipe)
+				|| (ft_strchr("|", *(curr->next->content)) && pipe))
 				return (1);
 		}
 		else if (*curr->content == '&' || *curr->content == ';')
@@ -61,3 +56,14 @@ int	check_quotes(char *line)
 	}
 	return (single || d_quotes);
 }
+
+// if (ft_strlen(curr->content) > 1 && pipe)
+			// 	return (1);
+			// if (ft_strlen(curr->content) > 2)
+			// 	return (1);
+			// else if (!curr->next)
+			// 	return (1);
+			// else if (ft_strchr("<|>", *(curr->next->content)) && !pipe)
+			// 	return (1);
+			// else if (ft_strchr("|", *(curr->next->content)) && pipe)
+			// 	return (1);
