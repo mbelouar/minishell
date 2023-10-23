@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 18:23:12 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/23 01:17:53 by mbelouar         ###   ########.fr       */
+/*   Created: 2023/10/09 23:28:00 by mrital-           #+#    #+#             */
+/*   Updated: 2023/10/23 16:17:26 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,17 @@ char	*ft_readline(t_data *data)
 	else
 		add_history(line);
 	return (line);
+}
+
+int	ft_token_size(t_tokenizer *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 22:21:41 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/23 01:28:21 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:49:44 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ char	*get_new_string(t_data *data, int len, char *content, char **env)
 		if (content[token->i] == '\'' && ++token->i)
 			ft_go(token, content);
 		else if (content[token->i] == '$' && ++token->i)
-		{
 			ft_help_get_str(data, content, token, env);
-			break ;
-		}
 		else
 		{
 			token->dup[token->len] = content[token->i];
@@ -46,25 +43,6 @@ char	*get_new_string(t_data *data, int len, char *content, char **env)
 	token->dup[token->len] = '\0';
 	str = ft_free_new_str(token);
 	return (str);
-}
-
-void	ft_help_get_str(t_data *data, char *content, t_list *token, char **env)
-{
-	char	*str;
-
-	str = NULL;
-	if (ft_valid(content[token->i]) == 0)
-	{
-		token->dup[token->len] = content[token->i];
-		token->len++;
-	}
-	else
-	{
-		if (ft_hundling(data, token, content, str) == 1)
-			return ;
-	}
-	if (str)
-		free(str);
 }
 
 void	ft_go(t_list *token, char *content)
@@ -78,22 +56,6 @@ void	ft_go(t_list *token, char *content)
 		token->i++;
 	}
 	token->dup[token->len] = '\'';
-}
-
-char	*ft_free_new_str(t_list *s)
-{
-	char	*string;
-
-	if (s->check)
-	{
-		free(s->dup);
-		free(s->identify);
-		s->dup = ft_strdup("");
-	}
-	string = ft_strdup(s->dup);
-	free(s->dup);
-	free(s);
-	return (string);
 }
 
 static int	ft_box(t_list *s, bool b)

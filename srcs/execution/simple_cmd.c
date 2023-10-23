@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:51:59 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/21 21:36:11 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:35:32 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute_builtin_cmd(t_data *data, int save_fd[2])
 	}
 }
 
-void	execute_external_cmd(t_data *data, int save_fd[2])
+void	execute_external_cmd(t_data *data, int __unused save_fd[2])
 {
 	t_tokenizer	*tmp;
 	pid_t		pid;
@@ -46,6 +46,7 @@ void	execute_external_cmd(t_data *data, int save_fd[2])
 	char		*cmd_name;
 	int			status;
 
+	cmd = NULL;
 	tmp = data->tokenizer;
 	cmd_name = NULL;
 	pid = fork();

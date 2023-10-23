@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:48:31 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/23 01:33:05 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:33:45 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define MAX_PATH_LENGTH 4096
 
 typedef struct s_tokenizer	t_tokenizer;
-typedef enum e_type			t_type;
 typedef struct s_n			t_n;
 
 int							g_status;
@@ -51,6 +50,8 @@ enum						e_type
 	RED_IN,
 	HEREDOC
 };
+
+typedef enum e_type			t_type;
 
 struct						s_tokenizer
 {
@@ -207,5 +208,8 @@ void						ft_syntax_err(t_data *data, char *line,
 								t_list *lst);
 void						ft_quotes_err(t_data *data, char *line);
 void						end_of_file(t_data *data);
+void						data_init(t_data *data, char **env);
+void						create_lst(t_data *data, char **arr);
+int							ft_token_size(t_tokenizer *lst);
 
 #endif

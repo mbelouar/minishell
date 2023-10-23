@@ -6,7 +6,7 @@
 #    By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 18:42:22 by mbelouar          #+#    #+#              #
-#    Updated: 2023/10/23 01:40:17 by mbelouar         ###   ########.fr        #
+#    Updated: 2023/10/23 16:26:30 by mbelouar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	main.c \
 		srcs/builtins/export_utils.c \
 		srcs/parser/tokenizer.c \
 		srcs/parser/tokenizer_utils.c \
+		srcs/parser/tokenizer_utils2.c \
 		srcs/parser/main_utils.c \
 		srcs/execution/exec.c \
 		srcs/execution/redir.c \
@@ -35,6 +36,7 @@ SRC =	main.c \
 		srcs/expand/expand.c \
 		srcs/expand/expand_utils.c \
 		srcs/expand/expand_utils2.c \
+		srcs/expand/expand_utils3.c \
 
 
 RLFLGS        = -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline
@@ -49,22 +51,22 @@ OBJS := $(SRC:.c=.o)
 INCLUDE	= -L libft -lft -L/goinfre/mbelouar/homebrew/opt/readline/lib -lreadline #-I ../minishell.h
 
 %.o: %.c
-	$(CC)  -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
+	@$(CC)  $(FLAGS) -I/goinfre/mbelouar/homebrew/opt/readline/include -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C libft
-	$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) $(RLFLGS)
+	@make -C libft
+	@$(CC) $(FLAGS) -o $(NAME)  $(OBJS) $(INCLUDE) $(RLFLGS)
 
 
 clean:
-	$(RM) $(OBJS)
-	make clean -C libft
+	@$(RM) $(OBJS)
+	@make clean -C libft
 
 fclean: clean
-	$(RM) $(NAME)
-	 make fclean -C libft
+	@$(RM) $(NAME)
+	@make fclean -C libft
 
 re: fclean all
 

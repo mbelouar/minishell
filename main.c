@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/23 01:37:37 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:55:53 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@ void	create_lst(t_data *data, char **arr)
 	}
 	free(arr);
 	arr = NULL;
-}
-
-int	ft_token_size(t_tokenizer *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
 }
 
 static void	ft_hacker(char *line, t_data *data, t_list *lst, char **tmp)
@@ -93,6 +80,9 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	int		err;
 
+	err = 0;
+	line = NULL;
+	lst = NULL;
 	data_init(&data, env);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);

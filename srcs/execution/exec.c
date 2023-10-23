@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/23 00:07:55 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:01:06 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*search_in_path(char *cmd_name, char *path_copy)
 			break ;
 		ft_memcpy(abs_path, token, ft_strlen(token));
 		abs_path[ft_strlen(token)] = '/';
-		strcpy(abs_path + ft_strlen(token) + 1, cmd_name);
+		ft_strcpy(abs_path + ft_strlen(token) + 1, cmd_name);
 		if (access(abs_path, X_OK) == 0)
 		{
 			result = ft_strdup(abs_path);
@@ -74,11 +74,11 @@ void	check_dir(char *command_name, t_data *data)
 
 char	*get_absolute_path(char *command_name, t_data *data)
 {
-	int		i;
-	char	*path_env;
-	char	absolute_path[MAX_PATH_LENGTH];
-	char	*path_copy;
-	char	*result;
+	int				i;
+	char			*path_env;
+	char __unused	absolute_path[MAX_PATH_LENGTH];
+	char			*path_copy;
+	char			*result;
 
 	i = 0;
 	result = NULL;
