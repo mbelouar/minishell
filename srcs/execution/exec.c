@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:42:40 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/22 19:45:26 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:07:55 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char	*search_in_path(char *cmd_name, char *path_copy)
 		token = ft_strsep(&path, ":");
 		if (token == NULL)
 			break ;
-		snprintf(abs_path, sizeof(abs_path), "%s/%s", token, cmd_name);
+		ft_memcpy(abs_path, token, ft_strlen(token));
+		abs_path[ft_strlen(token)] = '/';
+		strcpy(abs_path + ft_strlen(token) + 1, cmd_name);
 		if (access(abs_path, X_OK) == 0)
 		{
 			result = ft_strdup(abs_path);

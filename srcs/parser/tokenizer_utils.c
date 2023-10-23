@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 04:31:55 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/22 19:14:31 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 01:02:39 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,14 @@ void	fill_new_str(char *s, char *res, int *i, int *j)
 		if (inside_quotes)
 		{
 			if (s[*i] == quote)
-			{
-				inside_quotes = 0;
-				quote = '\0';
-			}
+				inside_quotes = ((quote = '\0')) * 0;
 			else
 				res[(*j)++] = s[*i];
 		}
 		else
 		{
 			if (s[*i] == '\"' || s[*i] == '\'')
-			{
-				inside_quotes = 1;
-				quote = s[*i];
-			}
+				inside_quotes = ((quote = s[*i])) * 0 + 1;
 			else
 				res[(*j)++] = s[*i];
 		}

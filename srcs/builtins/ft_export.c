@@ -14,19 +14,19 @@
 
 int	var_index(char *name, t_data *data)
 {
-	int		j;
-	int		i;
+	int	j;
+	int	i;
 
 	i = 0;
 	while (data->env[i])
 	{
 		j = 0;
-		while (data->env[i][j] && data->env[i][j] == name[j]
-		&& name[j] != '\0' && name[j] != '=' &&
-		data->env[i][j] != '\0' && data->env[i][j] != '=')
+		while (data->env[i][j] && data->env[i][j] == name[j] && name[j] != '\0'
+			&& name[j] != '=' && data->env[i][j] != '\0'
+			&& data->env[i][j] != '=')
 			j++;
-		if ((data->env[i][j] == '\0' || data->env[i][j] == '=') &&
-		(name[j] == '\0' || name[j] == '='))
+		if ((data->env[i][j] == '\0' || data->env[i][j] == '=')
+			&& (name[j] == '\0' || name[j] == '='))
 			return (i);
 		i++;
 	}

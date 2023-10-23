@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 18:53:00 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/22 22:11:03 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:24:10 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void	ft_ft(t_norm *n, t_data *data)
 	n->child_pids[n->i] = n->p.pid;
 }
 
-void	ft_ft2(t_norm *n)
+void	ft_ft2(t_norm *n, t_data *data)
 {
 	n->i = -1;
 	while (++(n->i) < n->p.cmd_nb)
-		waitpid(n->child_pids[n->i], NULL, 0);
+		waitpid(n->child_pids[n->i], &data->exit_status, 0);
+	data->exit_status = data->exit_status >> 8;
 	free(n->child_pids);
 }
 
@@ -87,5 +88,5 @@ void	execute_compound_command(t_data *data)
 
 	ft_init(data, n);
 	ft_ft3(n, data);
-	ft_ft2(n);
+	ft_ft2(n, data);
 }

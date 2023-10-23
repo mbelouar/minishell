@@ -58,12 +58,12 @@ int	check_quotes(char *line)
 }
 
 // if (ft_strlen(curr->content) > 1 && pipe)
-			// 	return (1);
-			// if (ft_strlen(curr->content) > 2)
-			// 	return (1);
-			// else if (!curr->next)
-			// 	return (1);
-			// else if (ft_strchr("<|>", *(curr->next->content)) && !pipe)
-			// 	return (1);
-			// else if (ft_strchr("|", *(curr->next->content)) && pipe)
-			// 	return (1);
+// 	return (1);
+// if (ft_strlen(curr->content) > 2)
+// 	return (1);
+// else if (!curr->next)
+// 	return (1);
+// else if (ft_strchr("<|>", *(curr->next->content)) && !pipe)
+// 	return (1);
+// else if (ft_strchr("|", *(curr->next->content)) && pipe)
+// 	return (1);

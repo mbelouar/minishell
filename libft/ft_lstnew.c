@@ -25,13 +25,13 @@ t_list	*ft_lstnew(char *content)
 	return (head);
 }
 /*
-int main()
+int	main(void)
 {
-    t_list		*elem;
+	t_list		*elem;
 
-    char	str [] = "lorem ipsum dolor sit";
-    int i = 1;
-    elem = ft_lstnew(str);
-    printf("%s", elem->content);
-    return 0;
+	char	str [] = "lorem ipsum dolor sit";
+	int i = 1;
+	elem = ft_lstnew(str);
+	printf("%s", elem->content);
+	return (0);
 }*/

@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 19:21:39 by mbelouar          #+#    #+#             */
-/*   Updated: 2023/10/22 19:19:01 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:10:21 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	ft_red_in(t_data *data, t_tokenizer *head)
 	}
 }
 
-void	ft_heredoc(t_data *data, char	*delimiter)
+void	ft_heredoc(t_data *data, char *delimiter)
 {
-	int			fd[2];
-	int			quotes;
-	char		*line;
-	char		*expanded;
+	int		fd[2];
+	int		quotes;
+	char	*line;
+	char	*expanded;
 
 	pipe(fd);
 	signal(SIGINT, signal_heredoc);

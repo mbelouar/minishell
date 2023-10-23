@@ -6,7 +6,7 @@
 /*   By: mbelouar <mbelouar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:02:30 by mrital-           #+#    #+#             */
-/*   Updated: 2023/10/22 19:29:10 by mbelouar         ###   ########.fr       */
+/*   Updated: 2023/10/23 01:37:37 by mbelouar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,51 +57,46 @@ int	ft_token_size(t_tokenizer *lst)
 	return (size);
 }
 
+static void	ft_hacker(char *line, t_data *data, t_list *lst, char **tmp)
+{
+	while (1)
+	{
+		line = ft_readline(data);
+		if (!line)
+			continue ;
+		tmp = ft_split(line, ' ');
+		create_lst(data, tmp);
+		if (check_quotes(line) == 1)
+		{
+			ft_quotes_err(data, line);
+			continue ;
+		}
+		lst = ft_split_lst(line, '\0');
+		if (analylizer(lst) == 1)
+		{
+			ft_syntax_err(data, line, lst);
+			continue ;
+		}
+		tokenizer(data);
+		execute(data);
+		ft_lstclear(&lst);
+		free(line);
+		free_token_list(&data->tokenizer);
+		ft_lstclear(&data->lst);
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 	t_list	*lst;
 	char	*line;
-	char	**tmp;
 	int		err;
 
-	tmp = NULL;
 	data_init(&data, env);
-	if (!data.env)
-		exit(EXIT_FAILURE);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	if (ac && av[0])
-	{
-		while (1)
-		{
-			line = ft_readline(&data);
-			if (ft_strlen(line) > 0)
-			{
-				tmp = ft_split(line, ' ');
-				create_lst(&data, tmp);
-				err = check_quotes(line);
-				if (err == 1)
-				{
-					ft_quotes_err(&data, line);
-					continue ;
-				}
-				lst = ft_split_lst(line, '\0');
-				err = analylizer(lst);
-				if (err == 1)
-				{
-					ft_syntax_err(&data, line, lst);
-					continue ;
-				}
-				ft_lstclear(&lst);
-				tokenizer(&data);
-				execute(&data);
-				free(line);
-				free_token_list(&data.tokenizer);
-				ft_lstclear(&data.lst);
-			}
-			system("leaks -q minishell");
-		}
-	}
+		ft_hacker(line, &data, lst, NULL);
 	return (0);
 }
