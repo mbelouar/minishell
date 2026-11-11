@@ -92,7 +92,3 @@ make
 | `make fclean` | Also remove the binary |
 | `make re` | Rebuild from scratch |
 
-## Authors
-
-- [Mohammed Belouarraq](https://github.com/mbelouar)
-- Mohamed Rital (`mrital-` at 1337)
